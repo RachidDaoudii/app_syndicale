@@ -11,7 +11,7 @@ module.exports = () => {
   });
 
   router.post("/logout", (req, res) => {
-    res.send("logout");
+    res.send("logout &");
   });
 
   return router;
