@@ -4,12 +4,16 @@ const { getAuthByEmailUseCase } = require("../../useCases/auth");
 module.exports = async (req, res) => {
   try {
     const { email, password } = req.body;
-
     const useCaseInstance = getAuthByEmailUseCase();
     const response = await useCaseInstance.execute(email, password);
-    res.json(response);
+
+    await res.cookie("_cks_ui", response.data.token, {
+      secure: true,
+    });
+
+    return res.json(response);
   } catch (err) {
-    res.json(
+    return res.json(
       new Response({
         status: 500,
         message: err.message,

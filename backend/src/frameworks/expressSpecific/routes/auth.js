@@ -1,10 +1,10 @@
 const express = require("express");
 const { authController } = require("../../../controllers");
 
-module.exports = () => {
+module.exports = (ded) => {
   const router = express.Router();
 
-  const { addAuthController, getAuthByEmailController } = authController();
+  const { addAuthController, getAuthByEmailController } = authController(ded);
 
   router.post("/register", addAuthController);
 
