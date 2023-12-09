@@ -17,12 +17,7 @@ module.exports = () => {
     const User = await authRepository.getByEmail(user);
 
     if (!User) {
-      return new Response({
-        status: 404,
-        message: `User with email ${email} does not exist.`,
-        data: {},
-        errors: null,
-      });
+      return false;
     }
 
     const { _id, first_name, last_name, role } = User;
@@ -33,12 +28,7 @@ module.exports = () => {
     );
 
     if (!isPasswordCorrect) {
-      return new Response({
-        status: 401,
-        message: `Password is incorrect.`,
-        data: {},
-        errors: null,
-      });
+      return false;
     }
 
     const token = await jsonWebToken.sign({

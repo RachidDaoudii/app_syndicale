@@ -8,10 +8,22 @@ const cors = require("cors");
 const bodyParser = require("body-parser");
 // const cookieParser = require("cookie-parser");
 
+const allowedOrigins = ["http://localhost:5173"];
+const corsOptions = {
+  origin: function (origin, callback) {
+    if (allowedOrigins.indexOf(origin) !== -1 || !origin) {
+      callback(null, true);
+    } else {
+      callback(new Error("Not allowed by CORS"));
+    }
+  },
+  credentials: true,
+};
+
 module.exports = {
   start: () => {
     app.use(express.json());
-    app.use(cors());
+    app.use(cors(corsOptions));
     const apiRoutes = routes();
     app.use("/api/v1", apiRoutes);
     app.use(bodyParser.json());

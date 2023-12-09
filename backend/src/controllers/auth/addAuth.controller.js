@@ -13,17 +13,18 @@ module.exports = async (req, res) => {
       password
     );
 
-    res.json(
+    return res.status(201).json(
       new Response({
         status: 200,
         message: "User added successfully",
         data: response,
       })
     );
+
   } catch (err) {
-    res.json(
+    return res.status(400).json(
       new Response({
-        status: 500,
+        status: 400,
         message: err.message,
         data: {},
       })
