@@ -13,9 +13,9 @@ const repository = () => {
       return mongoObject.save();
     },
     update: async (appartement) => {
-      const { id, updates } = appartement;
+      const { _id, updates } = appartement;
       const _appartement = Appartement.findByIdAndUpdate(
-        id,
+        _id,
         {
           ...updates,
           updatedAt: new Date(),

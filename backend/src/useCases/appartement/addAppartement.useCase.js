@@ -14,7 +14,7 @@ module.exports = () => {
     name,
     description,
     price,
-    image,
+    // image,
     city,
     address,
     postalCode,
@@ -33,7 +33,7 @@ module.exports = () => {
       name,
       description,
       price,
-      image,
+      // image,
       city,
       address,
       postalCode,
@@ -50,7 +50,6 @@ module.exports = () => {
     });
 
     const response = await appartementRepository.add(appartement);
-
     return response;
   };
   return { execute };

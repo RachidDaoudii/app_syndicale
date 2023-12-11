@@ -6,7 +6,7 @@ const { connect: connectMongo } = require("./frameworks/database/mongo");
 const routes = require("./frameworks/expressSpecific/routes");
 const cors = require("cors");
 const bodyParser = require("body-parser");
-// const cookieParser = require("cookie-parser");
+const cookieParser = require("cookie-parser");
 
 const allowedOrigins = ["http://localhost:5173"];
 const corsOptions = {
@@ -23,11 +23,11 @@ const corsOptions = {
 module.exports = {
   start: () => {
     app.use(express.json());
+    app.use(cookieParser());
     app.use(cors(corsOptions));
     const apiRoutes = routes();
     app.use("/api/v1", apiRoutes);
     app.use(bodyParser.json());
-    // app.use(cookieParser());
 
     app.listen(PORT, () => {
       console.log(`Server running on port ${PORT}`);

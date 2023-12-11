@@ -3,10 +3,10 @@ const { Response } = require("../../frameworks/common/response");
 const { updateAppartementUseCase } = require("../../useCases/appartement");
 module.exports = async (req, res) => {
   try {
-    const { id, ...updates } = req.body;
+    const { _id, ...updates } = req.body;
     const updateCategory = updateAppartementUseCase();
     const response = await updateCategory.execute({
-      id,
+      _id,
       updates,
     });
 
