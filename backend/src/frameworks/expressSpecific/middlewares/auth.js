@@ -18,8 +18,7 @@ class auth {
   };
 
   static isAdmin = async (req, res, next) => {
-    // const token = req.cookies._cks_ui;
-    const token = req.headers.authorization.split(" ")[1];
+    const token = req.cookies._cks_ui;
     const { role } = await jwtToken.verify(token);
     switch (role.role) {
       case "ADMIN":
@@ -36,9 +35,9 @@ class auth {
 
   static isAuthenticated = async (req, res, next) => {
     try {
-      // const token = req.cookies._cks_ui;
-      const token = req.headers.authorization.split(" ")[1];
-      if (!token)
+      const token = req.cookies._cks_ui;
+      const user = await jwtToken.verify(token);
+      if (!token && !user)
         return res.status(401).json({
           status: "error",
           message: "Please log in first",

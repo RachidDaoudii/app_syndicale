@@ -1,12 +1,23 @@
 import { Routes, Route } from "react-router-dom";
 import { SignIn } from "./pages/auth/sign-in";
 import { SignUp } from "./pages/auth/sign-up";
+import Dashboard from "./pages/dashboard/dashboard";
+import Appartement from "./pages/appartement";
+import Paiement from "./pages/paiement";
+import AddAppartement from "./pages/appartement/add";
+import EditAppartement from "./pages/appartement/edit";
 
 const MainRoute = () => {
   return (
     <Routes>
       <Route path="/auth/sign-up" element={<SignUp />} />
       <Route path="/auth/sign-in" element={<SignIn />} />
+      <Route path="/dashboard" element={<Dashboard />}>
+        <Route path="/dashboard/appartement" element={<Appartement />} />
+        <Route path="/dashboard/paiement" element={<Paiement />} />
+        <Route path="/dashboard/appartement/add" element={<AddAppartement />} />
+        <Route path="/dashboard/appartement/edit/:id" element={<EditAppartement />} />
+      </Route>
     </Routes>
   );
 };

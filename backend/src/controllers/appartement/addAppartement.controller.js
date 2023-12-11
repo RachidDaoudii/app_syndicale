@@ -28,7 +28,7 @@ module.exports = async (req, res) => {
       name,
       description,
       price,
-      image,
+      // image,
       city,
       address,
       postalCode,

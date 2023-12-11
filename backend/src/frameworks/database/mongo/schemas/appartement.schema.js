@@ -9,7 +9,7 @@ const appartementSchema = new mongoose.Schema({
   },
   description: {
     type: String,
-    required: true,
+    default: null,
     trim: true,
     minlength: 2,
   },
@@ -21,9 +21,8 @@ const appartementSchema = new mongoose.Schema({
   },
   image: {
     type: String,
-    trim: true,
-    minlength: 2,
-    default: null,
+    default:
+      "https://images.pexels.com/photos/1125136/pexels-photo-1125136.jpeg?auto=compress&cs=tinysrgb&w=600",
   },
   city: {
     type: String,
