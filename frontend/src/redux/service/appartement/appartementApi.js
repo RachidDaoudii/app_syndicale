@@ -7,6 +7,12 @@ export const appartementApi = ApiSlice.injectEndpoints({
         method: "GET",
       }),
     }),
+    appartementByStatus: builder.query({
+      query: () => ({
+        url: "appartement/status",
+        method: "GET",
+      }),
+    }),
     addAppartement: builder.mutation({
       query: (body) => ({
         url: "appartement",
@@ -44,4 +50,5 @@ export const {
   useDeleteAppartementMutation,
   useGetAppartementByIdMutation,
   useUpdateAppartementMutation,
+  useAppartementByStatusQuery
 } = appartementApi;

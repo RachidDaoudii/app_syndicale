@@ -11,6 +11,7 @@ module.exports = (ded) => {
     getAppartementController,
     deleteAppartementController,
     updateAppartementController,
+    getAppartementByStatusController,
   } = appartementController(ded);
 
   router
@@ -19,6 +20,7 @@ module.exports = (ded) => {
     .get(getAllAppartementController)
     .delete(isAuthenticated, deleteAppartementController)
     .patch(isAuthenticated, updateAppartementController);
+  router.route("/status").get(getAppartementByStatusController);
 
   router.route("/:id").get(getAppartementController);
 

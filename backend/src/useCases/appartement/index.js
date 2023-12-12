@@ -3,6 +3,8 @@ const getAllAppartementUseCase = require("./getAllAppartement.useCase");
 const getAppartementUseCase = require("./getAppartement.useCase");
 const updateAppartementUseCase = require("./updateAppartement.useCase");
 const deleteAppartementUseCase = require("./deleteAppartement.useCase");
+const updateStatusAppartementUseCase = require("./updateStatusAppartement.useCase");
+const getAppartementByStatus = require("./getAppartementByStatus.useCase");
 
 module.exports = {
   addAppartementUseCase,
@@ -10,4 +12,6 @@ module.exports = {
   getAppartementUseCase,
   updateAppartementUseCase,
   deleteAppartementUseCase,
+  updateStatusAppartementUseCase,
+  getAppartementByStatus,
 };

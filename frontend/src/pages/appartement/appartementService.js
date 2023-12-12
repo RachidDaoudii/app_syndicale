@@ -11,22 +11,15 @@ import { useNavigate } from "react-router-dom";
 export const AddAppartementService = () => {
   const navigate = useNavigate();
   const [dataAppartement, setAppartement] = useState({
-    name: "",
+    number: "",
     price: 0,
-    image: "",
     address: "",
-    postalCode: "",
     city: "",
-    type: "",
     surface: 0,
     rooms: 0,
     bedrooms: 0,
-    floor: 0,
-    elevator: false,
     parking: false,
-    terrace: false,
     garden: false,
-    swimmingPool: false,
   });
   const [addAppartement, { data, error, isLoading, isSuccess, isError }] =
     useAddAppartementMutation();
@@ -47,6 +40,7 @@ export const AddAppartementService = () => {
 
   useEffect(() => {
     if (isSuccess) {
+      console.log(data);
       if (data.status === 500) {
         return toast.error("All is Required");
       }

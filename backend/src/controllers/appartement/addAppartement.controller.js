@@ -4,44 +4,30 @@ const { addAppartementUseCase } = require("../../useCases/appartement");
 module.exports = async (req, res) => {
   try {
     const {
-      name,
-      description,
+      number,
       price,
-      image,
+      status,
       city,
       address,
-      postalCode,
-      type,
       surface,
       rooms,
       bedrooms,
-      floor,
-      elevator,
       parking,
-      terrace,
       garden,
-      swimmingPool,
     } = req.body;
 
     const useCaseInstance = addAppartementUseCase();
     const response = await useCaseInstance.execute(
-      name,
-      description,
+      number,
       price,
-      // image,
+      status,
       city,
       address,
-      postalCode,
-      type,
       surface,
       rooms,
       bedrooms,
-      floor,
-      elevator,
       parking,
-      terrace,
-      garden,
-      swimmingPool
+      garden
     );
 
     res.json(
