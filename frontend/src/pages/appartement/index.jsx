@@ -16,6 +16,7 @@ import {
   IconButton,
   Tooltip,
   Input,
+  Spinner,
 } from "@material-tailwind/react";
 import { useAppartementQuery } from "../../redux/service/appartement/appartementApi";
 import { useEffect, useState } from "react";
@@ -26,7 +27,7 @@ const TABLE_HEAD = [
   "Image",
   "N°",
   "Price",
-  "Type",
+  "Rooms",
   "Status",
   "Surface",
   "City",
@@ -69,17 +70,12 @@ export default function Appartement() {
           </div>
           <div className="flex w-full shrink-0 gap-2 md:w-max">
             <div className="w-full md:w-72 flex justify-end ">
-              <div className="flex justify-between" style={{ width: 300 }}>
+              <div className="flex justify-between">
                 <Link to={"/dashboard/appartement/add"}>
                   <Button className="flex items-center gap-3" size="sm">
                     Add Appartement
                   </Button>
                 </Link>
-
-                <Button className="flex items-center gap-3" size="sm">
-                  <ArrowDownTrayIcon strokeWidth={2} className="h-4 w-4" />{" "}
-                  Download
-                </Button>
               </div>
             </div>
           </div>
@@ -97,7 +93,7 @@ export default function Appartement() {
                   <Typography
                     variant="small"
                     color="blue-gray"
-                    className="font-normal leading-none opacity-70"
+                    className="font-normal leading-none opacity-70 text-center"
                   >
                     {head}
                   </Typography>
@@ -106,43 +102,65 @@ export default function Appartement() {
             </tr>
           </thead>
           <tbody>
+            {isLoading && (
+              <tr>
+                <td colSpan={9}>
+                  <div className="flex justify-center items-center gap-2 mt-2">
+                    <Spinner color="blue" />
+                    <Typography color="gray">Loading...</Typography>
+                  </div>
+                </td>
+              </tr>
+            )}
+            {dataAppartement.length === 0 && (
+              <tr>
+                <td colSpan={9}>
+                  <div className="flex justify-center items-center gap-2 mt-2">
+                    <Typography color="gray">No data found</Typography>
+                  </div>
+                </td>
+              </tr>
+            )}
             {dataAppartement.map(
               (
-                { _id, image, price, name, surface, type, city, address },
+                {
+                  _id,
+                  image,
+                  price,
+                  number,
+                  surface,
+                  rooms,
+                  city,
+                  address,
+                  status,
+                },
                 index
               ) => {
                 const isLast = index === TABLE_ROWS.length - 1;
                 const classes = isLast
                   ? "p-4"
-                  : "p-4 border-b border-blue-gray-50";
+                  : "p-4 border-b border-blue-gray-50 text-center";
 
                 return (
-                  <tr key={name}>
+                  <tr key={_id}>
                     <td className={classes}>
                       <div className="flex items-center gap-3">
                         <Avatar
                           src={image}
-                          alt={name}
+                          alt={number}
                           size="md"
                           className="border border-blue-gray-50 bg-blue-gray-50/50 object-contain p-1"
                         />
-                        <Typography
-                          variant="small"
-                          color="blue-gray"
-                          className="font-bold"
-                        >
-                          {name}
-                        </Typography>
                       </div>
                     </td>
                     <td>
-                        <Typography
-                            variant="small"
-                            color="blue-gray"
-                            className="font-normal"
-                        >
-                            {13123}
-                        </Typography>
+                      <Typography
+                        variant="small"
+                        color="blue-gray"
+                        className="font-normal text-center"
+                      >
+                        {number}
+                      </Typography>
                     </td>
                     <td className={classes}>
                       <Typography
@@ -159,17 +177,17 @@ export default function Appartement() {
                         color="blue-gray"
                         className="font-normal"
                       >
-                        {type}
+                        {rooms}
                       </Typography>
                     </td>
-                    <td className={classes}>
+                    <td className={classes} style={{textAlign:"-webkit-center"}}>
                       <div className="w-max">
                         <Chip
                           size="sm"
                           variant="ghost"
-                          value={"paid"}
+                          value={status === true ? "paid" : "pending"}
                           color={
-                            "paid" === "paid"
+                            status === true
                               ? "green"
                               : "paid" === "pending"
                               ? "amber"
@@ -179,7 +197,7 @@ export default function Appartement() {
                       </div>
                     </td>
                     <td className={classes}>
-                      <div className="flex items-center gap-3">
+                      <div className="flex items-center justify-center gap-3">
                         <div className="flex flex-col">
                           <Typography
                             variant="small"
@@ -192,7 +210,7 @@ export default function Appartement() {
                       </div>
                     </td>
                     <td className={classes}>
-                      <div className="flex items-center gap-3">
+                      <div className="flex items-center justify-center gap-3">
                         <div className="flex flex-col">
                           <Typography
                             variant="small"
@@ -205,7 +223,7 @@ export default function Appartement() {
                       </div>
                     </td>
                     <td className={classes}>
-                      <div className="flex items-center gap-3">
+                      <div className="flex items-center justify-center gap-3">
                         <div className="flex flex-col">
                           <Typography
                             variant="small"
@@ -242,7 +260,7 @@ export default function Appartement() {
           </tbody>
         </table>
       </CardBody>
-      {/* <CardFooter className="flex items-center justify-between border-t border-blue-gray-50 p-4">
+      <CardFooter className="flex items-center justify-between border-t border-blue-gray-50 p-4">
         <Button variant="outlined" size="sm">
           Previous
         </Button>
@@ -272,7 +290,7 @@ export default function Appartement() {
         <Button variant="outlined" size="sm">
           Next
         </Button>
-      </CardFooter> */}
+      </CardFooter>
     </Card>
   );
 }

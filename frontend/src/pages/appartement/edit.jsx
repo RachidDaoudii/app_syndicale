@@ -49,18 +49,18 @@ export default function EditAppartement() {
               color="blue-gray"
               className="mb-2 font-medium"
             >
-              Name
+              Number
             </Typography>
             <Input
-              placeholder="name"
+              placeholder="number"
               type="text"
               className=" !border-t-blue-gray-200 focus:!border-t-gray-900"
               labelProps={{
                 className: "before:content-none after:content-none",
               }}
               onChange={handleChange}
-              name="name"
-              value={dataAppartementById && dataAppartementById.name}
+              name="number"
+              value={dataAppartementById && dataAppartementById.number}
             />
           </div>
           <div className="w-full">
@@ -69,18 +69,18 @@ export default function EditAppartement() {
               color="blue-gray"
               className="mb-2 font-medium"
             >
-              Image
+              City
             </Typography>
             <Input
-              type="file"
-              containerProps={{ className: "min-w-[72px]" }}
-              placeholder="image"
+              type="text"
+              placeholder="city"
               className=" !border-t-blue-gray-200 focus:!border-t-gray-900"
               labelProps={{
                 className: "before:content-none after:content-none",
               }}
-              name="image"
+              name="city"
               onChange={handleChange}
+              value={dataAppartementById && dataAppartementById.city}
             />
           </div>
         </div>
@@ -134,26 +134,6 @@ export default function EditAppartement() {
               color="blue-gray"
               className="mb-2 font-medium"
             >
-              postalCode
-            </Typography>
-            <Input
-              type="number"
-              placeholder="postalCode"
-              className=" !border-t-blue-gray-200 focus:!border-t-gray-900"
-              labelProps={{
-                className: "before:content-none after:content-none",
-              }}
-              name="postalCode"
-              onChange={handleChange}
-              value={dataAppartementById && dataAppartementById.postalCode}
-            />
-          </div>
-          <div className="w-full">
-            <Typography
-              variant="small"
-              color="blue-gray"
-              className="mb-2 font-medium"
-            >
               surface
             </Typography>
             <Input
@@ -169,8 +149,6 @@ export default function EditAppartement() {
               value={dataAppartementById && dataAppartementById.surface}
             />
           </div>
-        </div>
-        <div className="my-4 flex items-center gap-4 w-full mt-4">
           <div className="w-full">
             <Typography
               variant="small"
@@ -191,27 +169,6 @@ export default function EditAppartement() {
               value={dataAppartementById && dataAppartementById.rooms}
             />
           </div>
-          <div className="w-full">
-            <Typography
-              variant="small"
-              color="blue-gray"
-              className="mb-2 font-medium"
-            >
-              floor
-            </Typography>
-            <Input
-              type="number"
-              containerProps={{ className: "min-w-[72px]" }}
-              placeholder="floor"
-              className=" !border-t-blue-gray-200 focus:!border-t-gray-900"
-              labelProps={{
-                className: "before:content-none after:content-none",
-              }}
-              name="floor"
-              onChange={handleChange}
-              value={dataAppartementById && dataAppartementById.floor}
-            />
-          </div>
         </div>
         <div className="my-4 flex items-center gap-4 w-full mt-4">
           <div className="w-full">
@@ -220,108 +177,54 @@ export default function EditAppartement() {
               color="blue-gray"
               className="mb-2 font-medium"
             >
-              City
+              Bedrooms
             </Typography>
             <Input
-              type="text"
-              placeholder="city"
-              className=" !border-t-blue-gray-200 focus:!border-t-gray-900"
-              labelProps={{
-                className: "before:content-none after:content-none",
-              }}
-              name="city"
-              onChange={handleChange}
-              value={dataAppartementById && dataAppartementById.city}
-            />
-          </div>
-          <div className="w-full">
-            <Typography
-              variant="small"
-              color="blue-gray"
-              className="mb-2 font-medium"
-            >
-              Type
-            </Typography>
-            <Input
-              type="text"
+              type="number"
               containerProps={{ className: "min-w-[72px]" }}
-              placeholder="type"
+              placeholder="bedrooms"
               className=" !border-t-blue-gray-200 focus:!border-t-gray-900"
               labelProps={{
                 className: "before:content-none after:content-none",
               }}
-              name="type"
+              name="bedrooms"
               onChange={handleChange}
-              value={dataAppartementById && dataAppartementById.type}
+              value={dataAppartementById && dataAppartementById.bedrooms}
             />
           </div>
+          <div className="w-full mt-4">
+            <div className="w-full max-w-[24rem]">
+              <List className="flex-row">
+                <ListItem
+                  ripple="light"
+                  className="flex items-center justify-around gap-2"
+                >
+                  <Typography color="gray">parking</Typography>
+                  <Switch
+                    color="blue"
+                    name="parking"
+                    checked={dataAppartementById.parking}
+                    onChange={handleChecked}
+                  />
+                </ListItem>
+
+                <ListItem
+                  ripple="light"
+                  className="flex items-center justify-around gap-2"
+                >
+                  <Typography color="gray">garden</Typography>
+                  <Switch
+                    color="blue"
+                    name="garden"
+                    checked={dataAppartementById.garden}
+                    onChange={handleChecked}
+                  />
+                </ListItem>
+              </List>
+            </div>
+          </div>
         </div>
-        <div className="mt-4">
-          <Card className="w-full max-w-[24rem]">
-            <List className="flex-row">
-              <ListItem
-                ripple="light"
-                className="flex items-center justify-around gap-2"
-              >
-                <Typography color="gray">elevator</Typography>
-                <Switch
-                  color="blue"
-                  name="elevator"
-                  checked={dataAppartementById.elevator}
-                  onChange={handleChecked}
-                />
-              </ListItem>
-              <ListItem
-                ripple="light"
-                className="flex items-center justify-around gap-2"
-              >
-                <Typography color="gray">parking</Typography>
-                <Switch
-                  color="blue"
-                  name="parking"
-                  checked={dataAppartementById.parking}
-                  onChange={handleChecked}
-                />
-              </ListItem>
-              <ListItem
-                ripple="light"
-                className="flex items-center justify-around gap-2"
-              >
-                <Typography color="gray">terrace</Typography>
-                <Switch
-                  color="blue"
-                  name="terrace"
-                  checked={dataAppartementById.terrace}
-                  onChange={handleChecked}
-                />
-              </ListItem>
-              <ListItem
-                ripple="light"
-                className="flex items-center justify-around gap-2"
-              >
-                <Typography color="gray">garden</Typography>
-                <Switch
-                  color="blue"
-                  name="garden"
-                  checked={dataAppartementById.garden}
-                  onChange={handleChecked}
-                />
-              </ListItem>
-              <ListItem
-                ripple="light"
-                className="flex items-center justify-around gap-2"
-              >
-                <Typography color="gray">swimmingPool</Typography>
-                <Switch
-                  color="blue"
-                  name="swimmingPool"
-                  checked={dataAppartementById.swimmingPool}
-                  onChange={handleChecked}
-                />
-              </ListItem>
-            </List>
-          </Card>
-        </div>
+
         <div className="flex justify-center">
           <Button
             type="submit"

@@ -1,15 +1,9 @@
 const mongoose = require("mongoose");
 const validator = require("validator");
 const appartementSchema = new mongoose.Schema({
-  name: {
+  number: {
     type: String,
     required: true,
-    trim: true,
-    minlength: 2,
-  },
-  description: {
-    type: String,
-    default: null,
     trim: true,
     minlength: 2,
   },
@@ -36,17 +30,9 @@ const appartementSchema = new mongoose.Schema({
     trim: true,
     minlength: 2,
   },
-  postalCode: {
-    type: Number,
-    required: true,
-    trim: true,
-    minlength: 2,
-  },
-  type: {
-    type: String,
-    required: true,
-    trim: true,
-    minlength: 2,
+  status: {
+    type: Boolean,
+    default: false,
   },
   surface: {
     type: Number,
@@ -66,37 +52,13 @@ const appartementSchema = new mongoose.Schema({
     trim: true,
     minlength: 2,
   },
-  floor: {
-    type: Number,
-    required: true,
-    trim: true,
-    minlength: 2,
-  },
-  elevator: {
-    type: Boolean,
-    required: true,
-    trim: true,
-    minlength: 2,
-  },
   parking: {
     type: Boolean,
     required: true,
     trim: true,
     minlength: 2,
   },
-  terrace: {
-    type: Boolean,
-    required: true,
-    trim: true,
-    minlength: 2,
-  },
   garden: {
-    type: Boolean,
-    required: true,
-    trim: true,
-    minlength: 2,
-  },
-  swimmingPool: {
     type: Boolean,
     required: true,
     trim: true,

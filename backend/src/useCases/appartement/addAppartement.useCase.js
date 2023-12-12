@@ -1,5 +1,5 @@
+const { Request } = require("../../config/request");
 const { Appartemant } = require("../../entities/appartement");
-const { Response } = require("../../frameworks/common/response");
 const {
   appartementRepository,
 } = require("../../frameworks/repositories/mongo");
@@ -10,44 +10,40 @@ module.exports = () => {
       "The appartement repository should be exist in dependancies"
     );
   }
+
   const execute = async (
-    name,
-    description,
+    number,
     price,
-    // image,
+    status,
     city,
     address,
-    postalCode,
-    type,
     surface,
     rooms,
     bedrooms,
-    floor,
-    elevator,
     parking,
-    terrace,
-    garden,
-    swimmingPool
+    garden
   ) => {
     const appartement = new Appartemant({
-      name,
-      description,
+      number,
       price,
-      // image,
+      status,
       city,
       address,
-      postalCode,
-      type,
       surface,
       rooms,
       bedrooms,
-      floor,
-      elevator,
       parking,
-      terrace,
       garden,
-      swimmingPool,
     });
+
+    console.log(appartement);
+
+    const request = new Request();
+    const validation = request.appartement().validate(appartement);
+
+    if (validation.error) {
+      throw new Error(validation.error.message);
+    }
 
     const response = await appartementRepository.add(appartement);
     return response;

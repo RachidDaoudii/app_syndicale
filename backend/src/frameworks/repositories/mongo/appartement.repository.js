@@ -55,6 +55,27 @@ const repository = () => {
 
       return appartement;
     },
+    updateStatus: async (appartement) => {
+      const { _id, status } = appartement;
+
+      const _appartement = Appartement.findByIdAndUpdate(
+        _id,
+        {
+          status: status,
+          updatedAt: new Date(),
+        },
+        {
+          new: true,
+        }
+      );
+
+      return _appartement;
+    },
+    getByStatus: async () => {
+      const appartement = await Appartement.find({ status: false });
+
+      return appartement;
+    },
   };
 };
 

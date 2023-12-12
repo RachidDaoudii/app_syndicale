@@ -1,8 +1,9 @@
 module.exports.Paiement = class Paiement {
-  constructor({ idAppartement, idPaiement, datePaiement, montantPaiement }) {
-    this.idAppartement = idAppartement;
-    this.idPaiement = idPaiement;
+  constructor({ id, appartement, client, datePaiement, montant }) {
+    this.id = id;
+    this.appartement = appartement;
+    this.client = client;
     this.datePaiement = datePaiement;
-    this.montantPaiement = montantPaiement;
+    this.montant = montant;
   }
 };
