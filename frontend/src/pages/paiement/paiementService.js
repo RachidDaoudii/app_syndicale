@@ -1,7 +1,10 @@
 import { useEffect, useState } from "react";
 import { useClientQuery } from "../../redux/service/client/clientApi";
 import { useAppartementByStatusQuery } from "../../redux/service/appartement/appartementApi";
-import { useAddPaiementMutation } from "../../redux/service/paiement/paiementApi";
+import {
+  useAddPaiementMutation,
+  useDeletePaiementMutation,
+} from "../../redux/service/paiement/paiementApi";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import jsPDF from "jspdf";
@@ -115,5 +118,32 @@ export const PaiementService = () => {
     handleSelectedClient,
     handleSelectedAppartement,
     handlePrint,
+  };
+};
+
+export const deletePaiement = () => {
+  const [
+    deletePaiement,
+    {
+      isLoading: deletePaiementIsLoading,
+      isError: deletePaiementIsError,
+      isSuccess: deletePaiementIsSuccess,
+      error: deletePaiementError,
+      data: deletePaiementData,
+    },
+  ] = useDeletePaiementMutation();
+  const handleDelete = async (id) => {
+    await deletePaiement({ id: id });
+  };
+
+  useEffect(() => {
+    if (deletePaiementIsSuccess) {
+      toast.success("Client deleted successfully");
+    }
+  }, [deletePaiementIsSuccess]);
+
+  return {
+    handleDelete,
+    deletePaiementIsSuccess,
   };
 };

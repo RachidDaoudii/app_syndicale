@@ -211,10 +211,12 @@ const navListItems = [
   },
 ];
 
-
 function NavList() {
   return (
-    <ul className="mt-8 mb-4 w-full flex flex-row items-center gap-2 lg:mb-0 lg:mt-0 lg:flex-row lg:items-center" style={{justifyContent:"space-evenly"}}>
+    <ul
+      className="mt-8 mb-4 w-full flex flex-row items-center gap-2 lg:mb-0 lg:mt-0 lg:flex-row lg:items-center"
+      style={{ justifyContent: "space-evenly" }}
+    >
       {/* <NavListMenu /> */}
       {navListItems.map(({ label, icon, url }, key) => (
         <Link
@@ -250,13 +252,13 @@ export default function NavBar() {
   return (
     <Navbar className="mx-auto max-w-screen-xl p-2 lg:rounded-full lg:pl-6 mt-4">
       <div className="relative mx-auto flex items-center justify-between text-blue-gray-900 ">
-        <Typography
+        <Link
           as="a"
-          href={"/dashboard"}
+          to={"/dashboard/overview"}
           className="mr-4 ml-2 cursor-pointer py-1.5 font-medium"
         >
           Material Tailwind
-        </Typography>
+        </Link>
         <div className="hidden lg:block">
           <NavList />
         </div>
