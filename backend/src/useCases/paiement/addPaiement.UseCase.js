@@ -6,12 +6,13 @@ module.exports = () => {
   if (!paiementRepository) {
     throw new Error("The paiement repository should be exist in dependancies");
   }
-  const execute = async (appartement, client, datePaiement, montant) => {
+  const execute = async (appartement, client, datePaiement, montant, user) => {
     const paiement = new Paiement({
       appartement,
       client,
       datePaiement,
       montant,
+      user,
     });
 
     const request = new Request();

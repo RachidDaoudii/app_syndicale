@@ -6,6 +6,8 @@ import {
 import { useEffect } from "react";
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
+import { setlogin } from "../../redux/features/auth/authSlice";
+import { useDispatch } from "react-redux";
 
 export const RegisterService = () => {
   const navigate = useNavigate();
@@ -53,6 +55,8 @@ export const RegisterService = () => {
 
 export const LoginService = () => {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
+
   const [data, setData] = useState({
     email: "",
     password: "",
@@ -78,6 +82,10 @@ export const LoginService = () => {
 
   useEffect(() => {
     if (isLoginSuccess) {
+      const { data } = loginData;
+      dispatch(setlogin(data.data));
+      console.log(data.data);
+
       toast.success("Login success");
       navigate("/dashboard");
     }

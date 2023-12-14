@@ -3,8 +3,10 @@ import { authApi } from "./service/auth/authApi";
 import { appartementApi } from "./service/appartement/appartementApi";
 import { clientApi } from "./service/client/clientApi";
 import { paiementApi } from "./service/paiement/paiementApi";
+import authSlice from "./features/auth/authSlice";
 
 const rootReducer = combineReducers({
+  auth: authSlice,
   [authApi.reducerPath]: authApi.reducer,
   [appartementApi.reducerPath]: appartementApi.reducer,
   [clientApi.reducerPath]: clientApi.reducer,

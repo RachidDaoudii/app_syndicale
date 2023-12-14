@@ -6,6 +6,7 @@ module.exports.Client = class Client {
     last_name = null,
     email = null,
     phone = null,
+    user = null,
   }) {
     this.id = id;
     this.cin = cin;
@@ -13,5 +14,6 @@ module.exports.Client = class Client {
     this.last_name = last_name;
     this.email = email;
     this.phone = phone;
+    this.user = user;
   }
 };

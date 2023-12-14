@@ -115,6 +115,15 @@ export default function Paiement() {
                   </td>
                 </tr>
               )}
+              {dataClient.length === 0 && (
+                <tr>
+                  <td colSpan={5}>
+                    <div className="flex justify-center items-center gap-2 mt-2">
+                      <Typography color="gray">No data found</Typography>
+                    </div>
+                  </td>
+                </tr>
+              )}
               {dataClient.map(
                 (
                   { _id, appartement, client, datePaiement, montant },

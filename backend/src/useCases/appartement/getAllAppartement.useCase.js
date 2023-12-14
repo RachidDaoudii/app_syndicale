@@ -11,7 +11,6 @@ module.exports = () => {
   }
   const execute = async () => {
     const response = await appartementRepository.getAll();
-
     return response;
   };
   return { execute };

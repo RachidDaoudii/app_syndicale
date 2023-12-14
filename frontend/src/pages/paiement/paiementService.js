@@ -5,8 +5,12 @@ import { useAddPaiementMutation } from "../../redux/service/paiement/paiementApi
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import jsPDF from "jspdf";
+import { useSelector } from "react-redux";
+
 export const PaiementService = () => {
   const navigate = useNavigate();
+  const auth = useSelector((state) => state.auth);
+
   const [AllClient, setClient] = useState([]);
   const [AllAppartement, setAppartement] = useState([]);
 
@@ -15,6 +19,7 @@ export const PaiementService = () => {
     appartement: "",
     montant: "",
     datePaiement: "",
+    user: "",
   });
 
   const { data: clientData, isSuccess: clientIsSuccess } = useClientQuery();
@@ -62,6 +67,7 @@ export const PaiementService = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    instancePaiement.user = auth._id;
     await addPaiement(instancePaiement);
   };
 

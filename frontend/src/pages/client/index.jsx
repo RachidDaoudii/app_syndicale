@@ -99,6 +99,15 @@ export default function Client() {
                   </td>
                 </tr>
               )}
+              {dataClient.length === 0 && (
+                <tr>
+                  <td colSpan={9}>
+                    <div className="flex justify-center items-center gap-2 mt-2">
+                      <Typography color="gray">No data found</Typography>
+                    </div>
+                  </td>
+                </tr>
+              )}
               {dataClient.map(
                 (
                   { _id, image, cin, first_name, last_name, email, phone },

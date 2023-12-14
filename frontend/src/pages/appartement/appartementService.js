@@ -7,9 +7,13 @@ import {
 } from "../../redux/service/appartement/appartementApi";
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
+import { useSelector } from "react-redux";
 
 export const AddAppartementService = () => {
   const navigate = useNavigate();
+  const auth = useSelector((state) => state.auth);
+
+
   const [dataAppartement, setAppartement] = useState({
     number: "",
     price: 0,
@@ -20,6 +24,7 @@ export const AddAppartementService = () => {
     bedrooms: 0,
     parking: false,
     garden: false,
+    user: auth._id,
   });
   const [addAppartement, { data, error, isLoading, isSuccess, isError }] =
     useAddAppartementMutation();
