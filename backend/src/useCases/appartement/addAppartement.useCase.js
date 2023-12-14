@@ -21,7 +21,8 @@ module.exports = () => {
     rooms,
     bedrooms,
     parking,
-    garden
+    garden,
+    user
   ) => {
     const appartement = new Appartemant({
       number,
@@ -34,9 +35,10 @@ module.exports = () => {
       bedrooms,
       parking,
       garden,
+      user,
     });
 
-    console.log(appartement);
+    
 
     const request = new Request();
     const validation = request.appartement().validate(appartement);

@@ -1,27 +1,26 @@
 import { createSlice } from "@reduxjs/toolkit";
 import Cookies from "js-cookie";
+import { useNavigate } from "react-router-dom";
 
 const AuthState = {
-  address: [],
-  createdAt: null,
-  deletedAt: null,
-  email: null,
+  _id: null,
   first_name: null,
-  isBlocked: null,
   last_name: null,
-  loginCount: null,
+  email: null,
   mobile: null,
   password: null,
-  picture: null,
+  loginCount: 0,
+  picture:
+    "https://res.cloudinary.com/dmhcnhtng/image/upload/v1643044376/avatars/default_pic_jeaybr.png",
+  isBlocked: false,
+  isVerified: false,
+  isAuth: false,
+  verified: false,
   refreshToken: null,
-  role: {},
-  search: [],
+  deletedAt: null,
+  createdAt: null,
   updatedAt: null,
-  username: null,
-  verified: null,
-  wishlist: [],
-  __v: null,
-  _id: null,
+  __v: 0,
 };
 
 const authSlice = createSlice({
@@ -29,58 +28,30 @@ const authSlice = createSlice({
   initialState: AuthState,
   reducers: {
     setlogin: (state, action) => {
-      console.log(action.payload);
-      state.address = action.payload?.content?.address;
-      state.createdAt = action.payload?.content?.createdAt;
-      state.deletedAt = action.payload?.content?.deletedAt;
-      state.email = action.payload?.content?.email;
-      state.first_name = action.payload?.content?.first_name;
-      state.isBlocked = action.payload?.content?.isBlocked;
-      state.last_name = action.payload?.content?.last_name;
-      state.loginCount = action.payload?.content?.loginCount;
-      state.mobile = action.payload?.content?.mobile;
-      state.picture = action.payload?.content?.picture;
-      state.role = action.payload?.content?.role;
-      state.search = action.payload?.content?.search;
-      state.updatedAt = action.payload?.content?.updatedAt;
-      state.username = action.payload?.content?.username;
-      state.verified = action.payload?.content?.verified;
-      state.wishlist = action.payload?.content?.wishlist;
-      state.__v = action.payload?.content?.__v;
-      state._id = action.payload?.content?._id;
+      state._id = action.payload?.User?._id;
+      state.first_name = action.payload?.User?.first_name;
+      state.last_name = action.payload?.User?.last_name;
+      state.email = action.payload?.User?.email;
+      state.isAuth = true;
 
       localStorage.setItem(
         "USER",
         JSON.stringify({
-          content: {
-            address: action.payload?.content?.address,
-            createdAt: action.payload?.content?.createdAt,
-            deletedAt: action.payload?.content?.deletedAt,
-            email: action.payload?.content?.email,
-            first_name: action.payload?.content?.first_name,
-            isBlocked: action.payload?.content?.isBlocked,
-            last_name: action.payload?.content?.last_name,
-            loginCount: action.payload?.content?.loginCount,
-            mobile: action.payload?.content?.mobile,
-            picture: action.payload?.content?.picture,
-            role: action.payload?.content?.role,
-            search: action.payload?.content?.search,
-            updatedAt: action.payload?.content?.updatedAt,
-            username: action.payload?.content?.username,
-            verified: action.payload?.content?.verified,
-            wishlist: action.payload?.content?.wishlist,
-            __v: action.payload?.content?.__v,
-            _id: action.payload?.content?._id,
+          User: {
+            _id: action.payload?.User?._id,
+            first_name: action.payload?.User?.first_name,
+            last_name: action.payload?.User?.last_name,
+            email: action.payload?.User?.email,
           },
         })
       );
     },
-    logout: async (state) => {
+    logout: (state) => {
       state.user = null;
       state.isAuth = false;
       console.log("logout");
       localStorage.removeItem("USER");
-      await Cookies.remove("_cks_ui");
+      Cookies.remove("_cks_ui");
     },
     register: (state, action) => {
       state.user = action.payload;

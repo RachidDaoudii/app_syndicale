@@ -2,9 +2,11 @@ import { useEffect, useState } from "react";
 import { useAddClientMutation } from "../../redux/service/client/clientApi";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
+import { useSelector } from "react-redux";
 
 export const ClientService = () => {
   const navigate = useNavigate();
+  const auth = useSelector((state) => state.auth);
   const [instanceClient, setClient] = useState({
     cin: "",
     image: "",
@@ -12,7 +14,9 @@ export const ClientService = () => {
     last_name: "",
     email: "",
     phone: "",
+    user: "",
   });
+
   const [
     addClient,
     {
@@ -30,6 +34,7 @@ export const ClientService = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    instanceClient.user = auth._id;
     await addClient(instanceClient);
   };
 

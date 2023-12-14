@@ -11,6 +11,7 @@ module.exports.Appartemant = class Appartemant {
     bedrooms = null,
     parking = null,
     garden = null,
+    user = null,
   }) {
     this.id = id;
     this.number = number;
@@ -23,5 +24,6 @@ module.exports.Appartemant = class Appartemant {
     this.bedrooms = bedrooms;
     this.parking = parking;
     this.garden = garden;
+    this.user = user;
   }
 };

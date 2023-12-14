@@ -25,8 +25,10 @@ import {
   RocketLaunchIcon,
   Bars2Icon,
 } from "@heroicons/react/24/solid";
+import { logout } from "../redux/features/auth/authSlice";
+import { useDispatch } from "react-redux";
+import { Link, useNavigate } from "react-router-dom";
 
-// profile menu component
 const profileMenuItems = [
   {
     label: "My Profile",
@@ -37,20 +39,14 @@ const profileMenuItems = [
     icon: Cog6ToothIcon,
   },
   {
-    label: "Inbox",
-    icon: InboxArrowDownIcon,
-  },
-  {
-    label: "Help",
-    icon: LifebuoyIcon,
-  },
-  {
     label: "Sign Out",
     icon: PowerIcon,
   },
 ];
 
 function ProfileMenu() {
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
   const [isMenuOpen, setIsMenuOpen] = React.useState(false);
 
   const closeMenu = () => setIsMenuOpen(false);
@@ -100,6 +96,14 @@ function ProfileMenu() {
                 variant="small"
                 className="font-normal"
                 color={isLastItem ? "red" : "inherit"}
+                onClick={
+                  isLastItem
+                    ? () => {
+                        dispatch(logout());
+                        navigate("/auth/sign-in");
+                      }
+                    : undefined
+                }
               >
                 {label}
               </Typography>
@@ -130,63 +134,63 @@ const navListMenuItems = [
   },
 ];
 
-function NavListMenu() {
-  const [isMenuOpen, setIsMenuOpen] = React.useState(false);
+// function NavListMenu() {
+//   const [isMenuOpen, setIsMenuOpen] = React.useState(false);
 
-  const renderItems = navListMenuItems.map(({ title, description }) => (
-    <a href="#" key={title}>
-      <MenuItem>
-        <Typography variant="h6" color="blue-gray" className="mb-1">
-          {title}
-        </Typography>
-        <Typography variant="small" color="gray" className="font-normal">
-          {description}
-        </Typography>
-      </MenuItem>
-    </a>
-  ));
+//   const renderItems = navListMenuItems.map(({ title, description }) => (
+//     <a href="#" key={title}>
+//       <MenuItem>
+//         <Typography variant="h6" color="blue-gray" className="mb-1">
+//           {title}
+//         </Typography>
+//         <Typography variant="small" color="gray" className="font-normal">
+//           {description}
+//         </Typography>
+//       </MenuItem>
+//     </a>
+//   ));
 
-  return (
-    <React.Fragment>
-      <Menu allowHover open={isMenuOpen} handler={setIsMenuOpen}>
-        <MenuHandler>
-          <Typography as="a" href="#" variant="small" className="font-normal">
-            <MenuItem className="hidden items-center gap-2 font-medium text-blue-gray-900 lg:flex lg:rounded-full">
-              <Square3Stack3DIcon className="h-[18px] w-[18px] text-blue-gray-500" />{" "}
-              Pages{" "}
-              <ChevronDownIcon
-                strokeWidth={2}
-                className={`h-3 w-3 transition-transform ${
-                  isMenuOpen ? "rotate-180" : ""
-                }`}
-              />
-            </MenuItem>
-          </Typography>
-        </MenuHandler>
-        <MenuList className="hidden w-[36rem] grid-cols-7 gap-3 overflow-visible lg:grid">
-          <Card
-            color="blue"
-            shadow={false}
-            variant="gradient"
-            className="col-span-3 grid h-full w-full place-items-center rounded-md"
-          >
-            <RocketLaunchIcon strokeWidth={1} className="h-28 w-28" />
-          </Card>
-          <ul className="col-span-4 flex w-full flex-col gap-1">
-            {renderItems}
-          </ul>
-        </MenuList>
-      </Menu>
-      <MenuItem className="flex items-center gap-2 font-medium text-blue-gray-900 lg:hidden">
-        <Square3Stack3DIcon className="h-[18px] w-[18px] text-blue-gray-500" />{" "}
-        Pages{" "}
-      </MenuItem>
-      <ul className="ml-6 flex w-full flex-col gap-1 lg:hidden">
-        {renderItems}
-      </ul>
-    </React.Fragment>
-  );
-}
+//   return (
+//     <React.Fragment>
+//       <Menu allowHover open={isMenuOpen} handler={setIsMenuOpen}>
+//         <MenuHandler>
+//           <Typography as="a" href="#" variant="small" className="font-normal">
+//             <MenuItem className="hidden items-center gap-2 font-medium text-blue-gray-900 lg:flex lg:rounded-full">
+//               <Square3Stack3DIcon className="h-[18px] w-[18px] text-blue-gray-500" />{" "}
+//               Pages{" "}
+//               <ChevronDownIcon
+//                 strokeWidth={2}
+//                 className={`h-3 w-3 transition-transform ${
+//                   isMenuOpen ? "rotate-180" : ""
+//                 }`}
+//               />
+//             </MenuItem>
+//           </Typography>
+//         </MenuHandler>
+//         <MenuList className="hidden w-[36rem] grid-cols-7 gap-3 overflow-visible lg:grid">
+//           <Card
+//             color="blue"
+//             shadow={false}
+//             variant="gradient"
+//             className="col-span-3 grid h-full w-full place-items-center rounded-md"
+//           >
+//             <RocketLaunchIcon strokeWidth={1} className="h-28 w-28" />
+//           </Card>
+//           <ul className="col-span-4 flex w-full flex-col gap-1">
+//             {renderItems}
+//           </ul>
+//         </MenuList>
+//       </Menu>
+//       <MenuItem className="flex items-center gap-2 font-medium text-blue-gray-900 lg:hidden">
+//         <Square3Stack3DIcon className="h-[18px] w-[18px] text-blue-gray-500" />{" "}
+//         Pages{" "}
+//       </MenuItem>
+//       <ul className="ml-6 flex w-full flex-col gap-1 lg:hidden">
+//         {renderItems}
+//       </ul>
+//     </React.Fragment>
+//   );
+// }
 
 // nav list component
 const navListItems = [
@@ -207,24 +211,25 @@ const navListItems = [
   },
 ];
 
+
 function NavList() {
   return (
-    <ul className="mt-2 mb-4 flex flex-col gap-2 lg:mb-0 lg:mt-0 lg:flex-row lg:items-center">
-      <NavListMenu />
+    <ul className="mt-8 mb-4 w-full flex flex-row items-center gap-2 lg:mb-0 lg:mt-0 lg:flex-row lg:items-center" style={{justifyContent:"space-evenly"}}>
+      {/* <NavListMenu /> */}
       {navListItems.map(({ label, icon, url }, key) => (
-        <Typography
+        <Link
           key={label}
           as="a"
-          href={url}
+          to={url}
           variant="small"
           color="gray"
           className="font-medium text-blue-gray-500"
         >
           <MenuItem className="flex items-center gap-2 lg:rounded-full">
-            {React.createElement(icon, { className: "h-[18px] w-[18px]" })}{" "}
+            {React.createElement(icon, { className: "h-[30px] w-[50px]" })}{" "}
             <span className="text-gray-900"> {label}</span>
           </MenuItem>
-        </Typography>
+        </Link>
       ))}
     </ul>
   );
@@ -244,7 +249,7 @@ export default function NavBar() {
 
   return (
     <Navbar className="mx-auto max-w-screen-xl p-2 lg:rounded-full lg:pl-6 mt-4">
-      <div className="relative mx-auto flex items-center justify-between text-blue-gray-900">
+      <div className="relative mx-auto flex items-center justify-between text-blue-gray-900 ">
         <Typography
           as="a"
           href={"/dashboard"}
@@ -266,7 +271,7 @@ export default function NavBar() {
         </IconButton>
         <ProfileMenu />
       </div>
-      <MobileNav open={isNavOpen} className="overflow-scroll">
+      <MobileNav open={isNavOpen} className="flex flex-row justify-around">
         <NavList />
       </MobileNav>
     </Navbar>
