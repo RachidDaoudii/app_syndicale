@@ -13,6 +13,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
 import { setlogin } from "./redux/features/auth/authSlice";
 import PrivateRoute from "./components/PrivateRoute";
+import OverView from "./pages/dashboard/overView";
 
 const MainRoute = () => {
   const dispatch = useDispatch();
@@ -35,6 +36,7 @@ const MainRoute = () => {
           </PrivateRoute>
         }
       >
+        <Route path="/dashboard/overview" element={<OverView />} />
         <Route path="/dashboard/appartement" element={<Appartement />} />
         <Route path="/dashboard/paiement" element={<Paiement />} />
         <Route path="/dashboard/paiement/add" element={<AddPaiement />} />

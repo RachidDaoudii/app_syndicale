@@ -14,7 +14,26 @@ export const paiementApi = ApiSlice.injectEndpoints({
         body: body,
       }),
     }),
+    deletePaiement: builder.mutation({
+      query: (body) => ({
+        url: `paiement`,
+        method: "DELETE",
+        body: body,
+      }),
+    }),
+    updatePaiment: builder.mutation({
+      query: (body) => ({
+        url: `paiement`,
+        method: "PATCH",
+        body: body,
+      }),
+    }),
   }),
 });
 
-export const { usePaiementQuery, useAddPaiementMutation } = paiementApi;
+export const {
+  usePaiementQuery,
+  useAddPaiementMutation,
+  useDeletePaiementMutation,
+  useUpdatePaimentMutation,
+} = paiementApi;

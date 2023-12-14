@@ -15,11 +15,11 @@ import {
 import { usePaiementQuery } from "../../redux/service/paiement/paiementApi";
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import { PaiementService } from "./paiementService";
+import { PaiementService, deletePaiement } from "./paiementService";
 
 const TABLE_HEAD = [
   "Client",
-  "Appartement",
+  "N° Appartement",
   "montant",
   "datePaiement",
   "Actions",
@@ -29,6 +29,10 @@ const TABLE_ROWS = [];
 
 export default function Paiement() {
   const { data, error, isLoading, refetch } = usePaiementQuery();
+
+  const deletepaiement = deletePaiement();
+
+  const { handleDelete, deletePaiementIsSuccess } = deletepaiement;
 
   const paiementService = PaiementService();
   const { handlePrint } = paiementService;
@@ -43,7 +47,7 @@ export default function Paiement() {
 
   useEffect(() => {
     refetch();
-  }, []);
+  }, [deletePaiementIsSuccess]);
 
   return (
     <div>
@@ -59,22 +63,16 @@ export default function Paiement() {
               </Typography>
             </div>
             <div className="flex w-full shrink-0 gap-2 md:w-max">
-              <Link to={"/dashboard/paiement/add"}>
-                <Button className="flex items-center gap-3" size="sm">
-                  Add Paiement
-                </Button>
-              </Link>
               <div className="w-full md:w-72 flex justify-end gab-4">
                 <div
                   className=" w-4/5 flex justify-between gap-4 items-center"
-                  style={{ width: 800 }}
+                  style={{ width: 260 }}
                 >
-                  <div className="md:w-72 w-full">
-                    <Input
-                      label="Search"
-                      // icon={<MagnifyingGlassIcon className="h-5 w-5" />}
-                    />
-                  </div>
+                  <Link to={"/dashboard/paiement/add"}>
+                    <Button className="flex items-center gap-3" size="sm">
+                      Add Paiement
+                    </Button>
+                  </Link>
                   <Button className="flex items-center gap-3" size="sm">
                     <ArrowDownTrayIcon strokeWidth={2} className="h-4 w-4" />{" "}
                     Download
@@ -165,7 +163,9 @@ export default function Paiement() {
                           color="blue-gray"
                           className="font-normal"
                         >
-                          {montant}
+                          {appartement && appartement?.rooms >= 4
+                            ? montant + 20
+                            : montant}
                         </Typography>
                       </td>
 
@@ -219,7 +219,7 @@ export default function Paiement() {
                           <IconButton
                             id={_id}
                             variant="text"
-                            //   onClick={() => handleDelete(_id)}
+                            onClick={() => handleDelete(_id)}
                           >
                             <TrashIcon className="h-4 w-4" />
                           </IconButton>

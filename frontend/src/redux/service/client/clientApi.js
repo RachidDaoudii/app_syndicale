@@ -14,7 +14,26 @@ export const clientApi = ApiSlice.injectEndpoints({
         body: body,
       }),
     }),
+    deleteClient: builder.mutation({
+      query: (body) => ({
+        url: `client`,
+        method: "DELETE",
+        body: body,
+      }),
+    }),
+    updateClient: builder.mutation({
+      query: (body) => ({
+        url: `client`,
+        method: "PATCH",
+        body: body,
+      }),
+    }),
   }),
 });
 
-export const { useClientQuery, useAddClientMutation } = clientApi;
+export const {
+  useClientQuery,
+  useAddClientMutation,
+  useDeleteClientMutation,
+  useUpdateClientMutation,
+} = clientApi;

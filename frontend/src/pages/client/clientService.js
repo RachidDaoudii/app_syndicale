@@ -1,5 +1,9 @@
 import { useEffect, useState } from "react";
-import { useAddClientMutation } from "../../redux/service/client/clientApi";
+import {
+  useAddClientMutation,
+  useDeleteClientMutation,
+  useUpdateClientMutation,
+} from "../../redux/service/client/clientApi";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import { useSelector } from "react-redux";
@@ -28,6 +32,17 @@ export const ClientService = () => {
     },
   ] = useAddClientMutation();
 
+  const [
+    updateClient,
+    {
+      isLoading: updateClientIsLoading,
+      isError: updateClientIsError,
+      isSuccess: updateClientIsSuccess,
+      error: updateClientError,
+      data: updateClientData,
+    },
+  ] = useUpdateClientMutation();
+
   const handleChange = (e) => {
     setClient({ ...instanceClient, [e.target.name]: e.target.value });
   };
@@ -55,5 +70,32 @@ export const ClientService = () => {
   return {
     handleChange,
     handleSubmit,
+  };
+};
+
+export const deleteClient = () => {
+  const [
+    deleteClient,
+    {
+      isLoading: deleteClientIsLoading,
+      isError: deleteClientIsError,
+      isSuccess: deleteClientIsSuccess,
+      error: deleteClientError,
+      data: deleteClientData,
+    },
+  ] = useDeleteClientMutation();
+  const handleDelete = async (id) => {
+    await deleteClient({ id: id });
+  };
+
+  useEffect(() => {
+    if (deleteClientIsSuccess) {
+      toast.success("Client deleted successfully");
+    }
+  }, [deleteClientIsSuccess]);
+
+  return {
+    handleDelete,
+    deleteClientIsSuccess,
   };
 };

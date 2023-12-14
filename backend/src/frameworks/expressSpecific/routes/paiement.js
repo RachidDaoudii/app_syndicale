@@ -4,11 +4,19 @@ const { paiementController } = require("../../../controllers");
 module.exports = (ded) => {
   const router = express.Router();
 
-  const { addPaiementController, getAllPaiementController } =
-    paiementController(ded);
+  const {
+    addPaiementController,
+    getAllPaiementController,
+    deletePaiementController,
+    updatePaiementController,
+  } = paiementController(ded);
 
-  router.post("/", addPaiementController);
-  router.get("/", getAllPaiementController);
+  router
+    .route("/")
+    .post(addPaiementController)
+    .get(getAllPaiementController)
+    .delete(deletePaiementController)
+    .patch(updatePaiementController);
 
   return router;
 };

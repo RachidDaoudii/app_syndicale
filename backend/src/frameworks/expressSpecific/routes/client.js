@@ -4,10 +4,19 @@ const { clientController } = require("../../../controllers");
 module.exports = (ded) => {
   const router = express.Router();
 
-  const { addClientController, getAllClientController } = clientController(ded);
+  const {
+    addClientController,
+    getAllClientController,
+    deleteClientController,
+    updateClientController,
+  } = clientController(ded);
 
-  router.post("/", addClientController);
-  router.get("/", getAllClientController);
+  router
+    .route("/")
+    .get(getAllClientController)
+    .post(addClientController)
+    .delete(deleteClientController)
+    .patch(updateClientController);
 
   return router;
 };

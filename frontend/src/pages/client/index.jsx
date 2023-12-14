@@ -14,6 +14,7 @@ import {
 import { useClientQuery } from "../../redux/service/client/clientApi";
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+import { deleteClient } from "./clientService";
 
 const TABLE_HEAD = [
   "Image",
@@ -28,6 +29,9 @@ const TABLE_HEAD = [
 const TABLE_ROWS = [];
 
 export default function Client() {
+  const deleteclient = deleteClient();
+
+  const { handleDelete, deleteClientIsSuccess } = deleteclient;
   const { data, error, isLoading, refetch } = useClientQuery();
 
   const [dataClient, setAppartement] = useState([]);
@@ -40,7 +44,7 @@ export default function Client() {
 
   useEffect(() => {
     refetch();
-  }, []);
+  }, [deleteClientIsSuccess]);
 
   return (
     <>
@@ -197,7 +201,7 @@ export default function Client() {
                           <IconButton
                             id={_id}
                             variant="text"
-                            //   onClick={() => handleDelete(_id)}
+                            onClick={() => handleDelete(_id)}
                           >
                             <TrashIcon className="h-4 w-4" />
                           </IconButton>
