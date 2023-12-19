@@ -7,6 +7,8 @@ const routes = require("./frameworks/expressSpecific/routes");
 const cors = require("cors");
 const bodyParser = require("body-parser");
 const cookieParser = require("cookie-parser");
+const swaggerUi = require("swagger-ui-express");
+const swaggerDocs = require("./config/swagger");
 
 const allowedOrigins = ["http://localhost:5173"];
 const corsOptions = {
@@ -22,6 +24,7 @@ const corsOptions = {
 
 module.exports = {
   start: () => {
+    app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerDocs));
     app.use(express.json());
     app.use(cookieParser());
     app.use(cors(corsOptions));

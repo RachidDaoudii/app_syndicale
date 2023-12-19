@@ -7,7 +7,6 @@ module.exports = (ded) => {
   const { addAuthController, getAuthByEmailController } = authController(ded);
 
   router.post("/register", addAuthController);
-
   router.post("/login", getAuthByEmailController);
 
   return router;
