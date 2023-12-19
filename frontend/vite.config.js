@@ -9,4 +9,8 @@ export default defineConfig({
     environment: "happy-dom",
     setupFiles: "./src/tests/setup.js",
   },
+  server: {
+    port: 5173,
+    host: "0.0.0.0",
+  },
 });
