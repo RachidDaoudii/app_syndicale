@@ -162,8 +162,9 @@ export const deletePaiement = () => {
       data: deletePaiementData,
     },
   ] = useDeletePaiementMutation();
-  const handleDelete = async (id) => {
-    await deletePaiement({ id: id });
+  const handleDelete = async (obj) => {
+    const { id, appartement, client } = obj;
+    await deletePaiement(obj);
   };
 
   useEffect(() => {

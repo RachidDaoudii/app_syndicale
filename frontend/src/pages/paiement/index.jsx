@@ -270,7 +270,13 @@ export default function Paiement() {
                           <IconButton
                             id={_id}
                             variant="text"
-                            onClick={() => handleDelete(_id)}
+                            onClick={() =>
+                              handleDelete({
+                                id: _id,
+                                appartement: appartement?._id,
+                                client: client?._id,
+                              })
+                            }
                           >
                             <TrashIcon className="h-4 w-4" />
                           </IconButton>

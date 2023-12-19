@@ -56,11 +56,11 @@ const repository = () => {
       return client;
     },
     updateStatus: async (client) => {
-      const { _id } = client;
+      const { _id, status } = client;
       const _client = await Client.findByIdAndUpdate(
         _id,
         {
-          status: true,
+          status: status,
         },
         {
           new: true,
