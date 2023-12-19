@@ -1,4 +1,5 @@
 import { ApiSlice } from "../../api/apiSlice";
+
 export const appartementApi = ApiSlice.injectEndpoints({
   endpoints: (builder) => ({
     appartement: builder.query({

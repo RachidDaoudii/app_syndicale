@@ -180,7 +180,10 @@ export default function Appartement() {
                         {rooms}
                       </Typography>
                     </td>
-                    <td className={classes} style={{textAlign:"-webkit-center"}}>
+                    <td
+                      className={classes}
+                      style={{ textAlign: "-webkit-center" }}
+                    >
                       <div className="w-max">
                         <Chip
                           size="sm"

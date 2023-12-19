@@ -1,13 +1,15 @@
 import { useEffect, useState } from "react";
-import { useClientQuery } from "../../redux/service/client/clientApi";
+import { useClientByStatusQuery } from "../../redux/service/client/clientApi";
 import { useAppartementByStatusQuery } from "../../redux/service/appartement/appartementApi";
 import {
   useAddPaiementMutation,
   useDeletePaiementMutation,
+  usePaiementQuery,
 } from "../../redux/service/paiement/paiementApi";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import jsPDF from "jspdf";
+import "jspdf-autotable";
 import { useSelector } from "react-redux";
 
 export const PaiementService = () => {
@@ -25,10 +27,23 @@ export const PaiementService = () => {
     user: "",
   });
 
-  const { data: clientData, isSuccess: clientIsSuccess } = useClientQuery();
+  const {
+    data: clientData,
+    isSuccess: clientIsSuccess,
+    isError: clientIsError,
+    error: clientError,
+    isLoading: clientIsLoading,
+    refetch: clientRefetch,
+  } = useClientByStatusQuery();
 
-  const { data: appartementData, isSuccess: appartementIsSuccess } =
-    useAppartementByStatusQuery();
+  const {
+    data: appartementData,
+    isSuccess: appartementIsSuccess,
+    isError: appartementIsError,
+    error: appartementError,
+    isLoading: appartementIsLoading,
+    refetch: appartementRefetch,
+  } = useAppartementByStatusQuery();
 
   const [
     addPaiement,
@@ -39,6 +54,11 @@ export const PaiementService = () => {
       isLoading: paiementIsLoading,
     },
   ] = useAddPaiementMutation();
+
+  useEffect(() => {
+    clientRefetch();
+    appartementRefetch();
+  }, []);
 
   useEffect(() => {
     if (clientIsSuccess) {
@@ -62,6 +82,8 @@ export const PaiementService = () => {
     appartementIsSuccess,
     paiementIsSuccess,
     paiementIsError,
+    clientIsLoading,
+    paiementIsLoading,
   ]);
 
   const handleChange = (e) => {
@@ -99,13 +121,21 @@ export const PaiementService = () => {
     pdf.setFontSize(12);
     pdf.setFont("helvetica", "normal");
 
-    const formattedData = Object.entries(objectData)
-      .map(([key, value]) => `${key} : ${value}`)
-      .join(
-        "\n\n__________________________________________________________________________\n\n"
-      );
-
-    pdf.text(formattedData, 10, 20);
+    pdf.autoTable({
+      head: [["N° Appartemant", "Price", "Client", "Date"]],
+      body: [
+        [
+          objectData.appartement,
+          objectData.montant,
+          objectData.client,
+          new Date(objectData.datePaiement).toLocaleDateString("en-US", {
+            year: "numeric",
+            month: "long",
+            day: "numeric",
+          }),
+        ],
+      ],
+    });
 
     pdf.save(`${e.client}.pdf`);
   };
@@ -145,5 +175,48 @@ export const deletePaiement = () => {
   return {
     handleDelete,
     deletePaiementIsSuccess,
+  };
+};
+
+export const printAppartemant = () => {
+  const [AllAppartement, setAppartement] = useState([]);
+  const { data, isSuccess } = usePaiementQuery();
+
+  useEffect(() => {
+    if (isSuccess) {
+      setAppartement(data.data);
+    }
+  }, [isSuccess]);
+
+  const handlePrintFalse = (e) => {
+    const pdf = new jsPDF();
+
+    pdf.text("Table Appartemant ", 10, 10);
+
+    pdf.autoTable({
+      head: [["N° Appartemant", "Price", "Status", "Client", "Date"]],
+      body: AllAppartement.map((paiement) => [
+        paiement?.appartement?.number,
+        paiement?.montant,
+        {
+          content: paiement?.appartement?.status ? "Paid" : "Not Paid",
+          // styles: {
+          //   halign: "center",
+          // },
+        },
+        paiement?.client?.first_name + " " + paiement?.client?.last_name,
+        new Date(paiement?.datePaiement).toLocaleDateString("en-US", {
+          year: "numeric",
+          month: "long",
+          day: "numeric",
+        }),
+      ]),
+    });
+
+    pdf.save(`${e.number}.pdf`);
+  };
+
+  return {
+    handlePrintFalse,
   };
 };
