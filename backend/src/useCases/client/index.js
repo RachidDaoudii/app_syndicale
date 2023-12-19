@@ -5,7 +5,6 @@ const updateClientUseCase = require("./updateClient.useCase");
 const getClientById = require("./getClientById.useCase");
 const updateStatusClientUseCase = require("./updateStatusClient.useCase");
 const getAllClientByStatusUseCase = require("./getClientByStatus.useCase");
-
 module.exports = {
   addClientUseCase,
   getAllClientUseCase,
@@ -14,4 +13,5 @@ module.exports = {
   getClientById,
   updateStatusClientUseCase,
   getAllClientByStatusUseCase,
+
 };
