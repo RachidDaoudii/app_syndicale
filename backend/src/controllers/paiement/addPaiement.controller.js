@@ -3,12 +3,25 @@ const { addPaiementUseCase } = require("../../useCases/paiement");
 const {
   updateStatusAppartementUseCase,
 } = require("../../useCases/appartement");
+const { updateStatusClientUseCase } = require("../../useCases/client");
 
 module.exports = async (req, res) => {
   try {
     const { appartement, client, datePaiement, montant, user } = req.body;
 
     const useCaseInstanceUpdate = updateStatusAppartementUseCase();
+
+    const useCaseInstanceUpdateClient = updateStatusClientUseCase();
+
+    const responseUpdateClient = await useCaseInstanceUpdateClient.execute({
+      _id: client,
+      status: true,
+    });
+
+    if (!responseUpdateClient) {
+      throw new Error("Client not found");
+    }
+
     const responseUpdate = await useCaseInstanceUpdate.execute({
       _id: appartement,
       status: true,

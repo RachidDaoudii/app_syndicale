@@ -1,4 +1,4 @@
-const bcrypt = require("../../config/bcrypt");
+const bcrypt = require("../../config/_bcrypt");
 const { Auth } = require("../../entities");
 const { authRepository } = require("../../frameworks/repositories/mongo");
 

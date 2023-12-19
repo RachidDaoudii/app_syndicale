@@ -107,9 +107,9 @@ const userSchema = new mongoose.Schema(
   { timestamps: true }
 );
 
-userSchema.methods.incrementLoginCount = function () {
-  this.loginCount += 1;
-  return this.save();
-};
+// userSchema.methods.incrementLoginCount = function () {
+//   this.loginCount += 1;
+//   return this.save();
+// };
 
 module.exports = userSchema;

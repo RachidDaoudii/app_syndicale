@@ -21,6 +21,10 @@ const clientSchema = new mongoose.Schema({
     required: true,
     trim: true,
   },
+  status: {
+    type: Boolean,
+    default: false,
+  },
   email: {
     type: String,
     required: true,

@@ -1,4 +1,4 @@
-const jwtToken = require("../../../config/jsonWebToken");
+const jwtToken = require("../../../config/jwt");
 
 class auth {
   static isSyndicale = async (req, res, next) => {
@@ -6,22 +6,6 @@ class auth {
     const { role } = await jwtToken.verify(token);
     switch (role.role) {
       case "syndicale":
-        next();
-        break;
-
-      default:
-        return res.status(401).json({
-          status: "error",
-          message: "you are not authorized",
-        });
-    }
-  };
-
-  static isAdmin = async (req, res, next) => {
-    const token = req.cookies._cks_ui;
-    const { role } = await jwtToken.verify(token);
-    switch (role.role) {
-      case "ADMIN":
         next();
         break;
 
