@@ -11,7 +11,7 @@ import { useSelector } from "react-redux";
 export const ClientService = () => {
   const navigate = useNavigate();
   const auth = useSelector((state) => state.auth);
-  const [instanceClient, setClient] = useState({
+  const [instanceClient, setInstanceClient] = useState({
     cin: "",
     image: "",
     first_name: "",
@@ -32,19 +32,8 @@ export const ClientService = () => {
     },
   ] = useAddClientMutation();
 
-  const [
-    updateClient,
-    {
-      isLoading: updateClientIsLoading,
-      isError: updateClientIsError,
-      isSuccess: updateClientIsSuccess,
-      error: updateClientError,
-      data: updateClientData,
-    },
-  ] = useUpdateClientMutation();
-
   const handleChange = (e) => {
-    setClient({ ...instanceClient, [e.target.name]: e.target.value });
+    setInstanceClient({ ...instanceClient, [e.target.name]: e.target.value });
   };
 
   const handleSubmit = async (e) => {
@@ -97,5 +86,53 @@ export const deleteClient = () => {
   return {
     handleDelete,
     deleteClientIsSuccess,
+  };
+};
+
+export const ServiceEditClient = () => {
+  const navigate = useNavigate();
+
+  const [instanceClient, setInstanceClient] = useState({
+    cin: "",
+    image: "",
+    first_name: "",
+    last_name: "",
+    email: "",
+    phone: "",
+    user: "",
+  });
+
+  const [
+    updateClient,
+    {
+      isLoading: updateClientIsLoading,
+      isError: updateClientIsError,
+      isSuccess: updateClientIsSuccess,
+      error: updateClientError,
+      data: updateClientData,
+    },
+  ] = useUpdateClientMutation();
+
+  const handleChange = (e) => {
+    setInstanceClient({ ...instanceClient, [e.target.name]: e.target.value });
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    await updateClient(instanceClient);
+  };
+
+  useEffect(() => {
+    if (updateClientIsSuccess) {
+      toast.success("Client updated successfully");
+      navigate("/dashboard/client");
+    }
+  }, [updateClientIsSuccess]);
+
+  return {
+    instanceClient,
+    setInstanceClient,
+    handleChange,
+    handleSubmit,
   };
 };

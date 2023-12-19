@@ -34,24 +34,27 @@ const authSlice = createSlice({
       state.email = action.payload?.User?.email;
       state.isAuth = true;
 
-      localStorage.setItem(
-        "USER",
-        JSON.stringify({
-          User: {
-            _id: action.payload?.User?._id,
-            first_name: action.payload?.User?.first_name,
-            last_name: action.payload?.User?.last_name,
-            email: action.payload?.User?.email,
-          },
-        })
-      );
+      if (action.payload?.User?._id) {
+        localStorage.setItem(
+          "USER",
+          JSON.stringify({
+            User: {
+              _id: action.payload?.User?._id,
+              first_name: action.payload?.User?.first_name,
+              last_name: action.payload?.User?.last_name,
+              email: action.payload?.User?.email,
+              isAuth: true,
+            },
+          })
+        );
+      }
     },
     logout: (state) => {
       state.user = null;
-      state.isAuth = false;
-      console.log("logout");
       localStorage.removeItem("USER");
       Cookies.remove("_cks_ui");
+      state.isAuth = false;
+      console.log(state.isAuth);
     },
     register: (state, action) => {
       state.user = action.payload;

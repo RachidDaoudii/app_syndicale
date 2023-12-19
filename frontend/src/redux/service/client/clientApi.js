@@ -28,6 +28,18 @@ export const clientApi = ApiSlice.injectEndpoints({
         body: body,
       }),
     }),
+    getClientById: builder.query({
+      query: (id) => ({
+        url: `client/${id}`,
+        method: "GET",
+      }),
+    }),
+    clientByStatus: builder.query({
+      query: () => ({
+        url: "client/status",
+        method: "GET",
+      }),
+    }),
   }),
 });
 
@@ -36,4 +48,6 @@ export const {
   useAddClientMutation,
   useDeleteClientMutation,
   useUpdateClientMutation,
+  useGetClientByIdQuery,
+  useClientByStatusQuery,
 } = clientApi;

@@ -28,6 +28,12 @@ export const paiementApi = ApiSlice.injectEndpoints({
         body: body,
       }),
     }),
+    getPaiementById: builder.query({
+      query: (id) => ({
+        url: `paiement/${id}`,
+        method: "GET",
+      }),
+    }),
   }),
 });
 
@@ -36,4 +42,5 @@ export const {
   useAddPaiementMutation,
   useDeletePaiementMutation,
   useUpdatePaimentMutation,
+  useGetPaiementByIdQuery,
 } = paiementApi;

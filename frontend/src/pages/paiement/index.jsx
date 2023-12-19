@@ -6,16 +6,24 @@ import {
   Typography,
   Button,
   CardBody,
-  Input,
   IconButton,
   Tooltip,
   Spinner,
   Chip,
+  Menu,
+  MenuHandler,
+  MenuList,
+  MenuItem,
 } from "@material-tailwind/react";
 import { usePaiementQuery } from "../../redux/service/paiement/paiementApi";
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import { PaiementService, deletePaiement } from "./paiementService";
+import {
+  PaiementService,
+  deletePaiement,
+  printAppartemant,
+} from "./paiementService";
+import { UserCircleIcon, Cog6ToothIcon } from "@heroicons/react/24/solid";
 
 const TABLE_HEAD = [
   "Client",
@@ -26,13 +34,29 @@ const TABLE_HEAD = [
 ];
 
 const TABLE_ROWS = [];
+const profileMenuItems = [
+  {
+    label: "My Profile",
+    icon: UserCircleIcon,
+  },
+  {
+    label: "Edit Profile",
+    icon: Cog6ToothIcon,
+  },
+];
 
 export default function Paiement() {
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+
+  const closeMenu = () => setIsMenuOpen(false);
+
   const { data, error, isLoading, refetch } = usePaiementQuery();
 
   const deletepaiement = deletePaiement();
+  const printappartmant = printAppartemant();
 
   const { handleDelete, deletePaiementIsSuccess } = deletepaiement;
+  const { handlePrintFalse } = printappartmant;
 
   const paiementService = PaiementService();
   const { handlePrint } = paiementService;
@@ -66,17 +90,44 @@ export default function Paiement() {
               <div className="w-full md:w-72 flex justify-end gab-4">
                 <div
                   className=" w-4/5 flex justify-between gap-4 items-center"
-                  style={{ width: 260 }}
+                  style={{ width: 270 }}
                 >
                   <Link to={"/dashboard/paiement/add"}>
                     <Button className="flex items-center gap-3" size="sm">
                       Add Paiement
                     </Button>
                   </Link>
-                  <Button className="flex items-center gap-3" size="sm">
-                    <ArrowDownTrayIcon strokeWidth={2} className="h-4 w-4" />{" "}
-                    Download
-                  </Button>
+                  <Menu
+                    open={isMenuOpen}
+                    handler={setIsMenuOpen}
+                    placement="bottom-end"
+                  >
+                    <MenuHandler>
+                      <Button className="flex items-center gap-3" size="sm">
+                        <ArrowDownTrayIcon
+                          strokeWidth={2}
+                          className="h-4 w-4"
+                        />{" "}
+                        Download
+                      </Button>
+                    </MenuHandler>
+                    <MenuList className="p-1 ">
+                      <MenuItem
+                        color="lightBlue"
+                        ripple="light"
+                        onClick={handlePrintFalse}
+                      >
+                        Appartement Paid
+                      </MenuItem>
+                      <MenuItem
+                        color="lightBlue"
+                        ripple="light"
+                        onClick={closeMenu}
+                      >
+                        Appartement Pending
+                      </MenuItem>
+                    </MenuList>
+                  </Menu>
                 </div>
               </div>
             </div>
@@ -199,7 +250,7 @@ export default function Paiement() {
                               handlePrint({
                                 client:
                                   client?.first_name + " " + client?.last_name,
-                                appartement: appartement?.name,
+                                appartement: appartement?.number,
                                 montant: montant,
                                 datePaiement: datePaiement,
                               })
