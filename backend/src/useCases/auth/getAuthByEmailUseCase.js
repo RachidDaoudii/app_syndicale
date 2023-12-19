@@ -1,5 +1,5 @@
-const jsonWebToken = require("../../config/jsonWebToken");
-const bcrypt = require("../../config/bcrypt");
+const jsonWebToken = require("../../config/jwt");
+const bcrypt = require("../../config/_bcrypt");
 const { Auth } = require("../../entities");
 const { Response } = require("../../frameworks/common/response");
 const { authRepository } = require("../../frameworks/repositories/mongo");

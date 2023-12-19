@@ -17,12 +17,14 @@ module.exports = (ded) => {
   router
     .route("/")
     .post(isAuthenticated, addAppartementController)
-    .get(getAllAppartementController)
+    .get(isAuthenticated, getAllAppartementController)
     .delete(isAuthenticated, deleteAppartementController)
     .patch(isAuthenticated, updateAppartementController);
-  router.route("/status").get(getAppartementByStatusController);
+  router
+    .route("/status")
+    .get(isAuthenticated, getAppartementByStatusController);
 
-  router.route("/:id").get(getAppartementController);
+  router.route("/:id").get(isAuthenticated, getAppartementController);
 
   return router;
 };

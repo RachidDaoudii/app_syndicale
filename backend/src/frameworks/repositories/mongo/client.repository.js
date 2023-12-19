@@ -55,6 +55,26 @@ const repository = () => {
 
       return client;
     },
+    updateStatus: async (client) => {
+      const { _id } = client;
+      const _client = await Client.findByIdAndUpdate(
+        _id,
+        {
+          status: true,
+        },
+        {
+          new: true,
+        }
+      );
+      return _client;
+    },
+    getAllByStatus: async () => {
+      const client = await Client.find({
+        status: false,
+      });
+
+      return client;
+    },
   };
 };
 
