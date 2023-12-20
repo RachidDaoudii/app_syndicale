@@ -15,6 +15,7 @@ import { setlogin } from "./redux/features/auth/authSlice";
 import PrivateRoute from "./components/PrivateRoute";
 import OverView from "./pages/dashboard/overView";
 import EditClient from "./pages/client/edit";
+import EditPaiement from "./pages/paiement/edit"
 
 const MainRoute = () => {
   const dispatch = useDispatch();
@@ -56,6 +57,7 @@ const MainRoute = () => {
             element={<EditAppartement />}
           />
           <Route path="/dashboard/client/edit/:id" element={<EditClient />} />
+          <Route path="/dashboard/paiement/edit/:id" element={<EditPaiement />} />
         </Route>
       </Routes>
     );

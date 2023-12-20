@@ -13,7 +13,6 @@ export const AddAppartementService = () => {
   const navigate = useNavigate();
   const auth = useSelector((state) => state.auth);
 
-
   const [dataAppartement, setAppartement] = useState({
     number: "",
     price: 0,
@@ -29,9 +28,8 @@ export const AddAppartementService = () => {
   const [addAppartement, { data, error, isLoading, isSuccess, isError }] =
     useAddAppartementMutation();
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-
+  const onSubmit = async (e) => {
+    // e.preventDefault();
     await addAppartement(dataAppartement);
   };
 
@@ -59,7 +57,7 @@ export const AddAppartementService = () => {
   }, [isSuccess, isError]);
 
   return {
-    handleSubmit,
+    onSubmit,
     handleChange,
     handleChecked,
     dataAppartement,
@@ -134,9 +132,7 @@ export const getAppartementById = () => {
     });
   };
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-
+  const onSubmit = async (e) => {
     await updateAppartement(dataAppartementById);
   };
 
@@ -146,6 +142,6 @@ export const getAppartementById = () => {
     dataAppartementById,
     handleChange,
     handleChecked,
-    handleSubmit,
+    onSubmit,
   };
 };

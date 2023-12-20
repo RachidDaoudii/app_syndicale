@@ -1,7 +1,8 @@
-FROM node:18.12.1
+FROM node:alpine as development
 
 
-WORKDIR /frontend
+# Create app directory
+WORKDIR /app/frontend
 
 COPY package*.json ./
 

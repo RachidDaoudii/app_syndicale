@@ -1,14 +1,37 @@
-version: "3.8"
+# version: "3.8"
+# services:
+#   backend:
+#     build: ./backend
+#     container_name: backend_v_latest
+#     ports:
+#       - "4000:4000"
+#   frontend:
+#     build: ./frontend
+#     container_name: frontend_v_latest
+#     ports:
+#       - "5173:5173"
+#     stdin_open: true
+#     tty: true
+
 services:
-  backend:
-    build: ./backend
-    container_name: backend_v_latest
+  syndicale-backend:
+    build:
+      context: ./backend
+      dockerfile: ./Dockerfile
+      target: development
+    image: syndicale-backend
+    command: npm run dev
+    env_file:
+      - ./backend/.env
     ports:
-      - "4000:4000"
-  frontend:
-    build: ./frontend
-    container_name: frontend_v_latest
+      - 4000:4000
+
+  syndicale-frontend:
+    build:
+      context: ./frontend
+      dockerfile: ./Dockerfile
+      target: development
+    image: syndicale-frontend
+    command: npm run dev
     ports:
-      - "5173:5173"
-    stdin_open: true
-    tty: true
+      - 5173:5173

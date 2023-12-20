@@ -36,8 +36,8 @@ export const ClientService = () => {
     setInstanceClient({ ...instanceClient, [e.target.name]: e.target.value });
   };
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
+  const onSubmit = async (e) => {
+    // e.preventDefault();
     instanceClient.user = auth._id;
     await addClient(instanceClient);
   };
@@ -58,7 +58,7 @@ export const ClientService = () => {
 
   return {
     handleChange,
-    handleSubmit,
+    onSubmit,
   };
 };
 
@@ -117,8 +117,9 @@ export const ServiceEditClient = () => {
     setInstanceClient({ ...instanceClient, [e.target.name]: e.target.value });
   };
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
+  const onSubmit = async (e) => {
+    // e.preventDefault();
+    console.log(instanceClient);
     await updateClient(instanceClient);
   };
 
@@ -133,6 +134,6 @@ export const ServiceEditClient = () => {
     instanceClient,
     setInstanceClient,
     handleChange,
-    handleSubmit,
+    onSubmit,
   };
 };

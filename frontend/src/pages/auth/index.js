@@ -75,8 +75,8 @@ export const LoginService = () => {
     setData({ ...data, [e.target.name]: e.target.value });
   };
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
+  const onSubmit = async (e) => {
+    // e.preventDefault();
     await loginUser(data);
   };
 
@@ -95,7 +95,7 @@ export const LoginService = () => {
   }, [isLoginSuccess, isLoginError]);
   return {
     data,
-    handleSubmit,
+    onSubmit,
     handleChange,
   };
 };

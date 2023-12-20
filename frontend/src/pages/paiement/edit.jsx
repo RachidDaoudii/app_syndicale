@@ -9,9 +9,9 @@ export default function AddPaiement() {
     AllClient,
     AllAppartement,
     handleChange,
-    onSubmit,
     handleSelectedClient,
     handleSelectedAppartement,
+    handleUpdate,
   } = paiementService;
 
   const {
@@ -24,12 +24,9 @@ export default function AddPaiement() {
   return (
     <Card color="transparent" shadow={false}>
       <Typography variant="h4" color="blue-gray">
-        {"Add Paiement"}
+        {"Edit Paiement"}
       </Typography>
-      <Typography color="gray" className="mt-1 font-normal">
-        {"Add new Paiement"}
-      </Typography>
-      <form className="mt-8 mb-2 w-full" onSubmit={handleSubmit(onSubmit)}>
+      <form className="mt-8 mb-2 w-full" onSubmit={handleSubmit(handleUpdate)}>
         <div className="my-4 flex items-center gap-4 w-full">
           <div className="w-full">
             <Select
@@ -105,7 +102,6 @@ export default function AddPaiement() {
               name="montant"
               {...watch("montant", {
                 required: true,
-                maxLength: 5,
               })}
             />
             {errors.montant && (
@@ -127,6 +123,7 @@ export default function AddPaiement() {
               Date Paiement
             </Typography>
             <Input
+              maxLength={4}
               type="date"
               containerProps={{ className: "min-w-[72px]" }}
               placeholder="date Paiement"
@@ -140,6 +137,7 @@ export default function AddPaiement() {
                 required: true,
               })}
             />
+
             {errors.datePaiement && (
               <span
                 className="text-red-500 text-xs italic absolute
@@ -154,7 +152,7 @@ export default function AddPaiement() {
 
         <div className="flex justify-center">
           <Button type="submit" className="mt-6" color="lightBlue">
-            save
+            update
           </Button>
         </div>
       </form>

@@ -3,14 +3,22 @@ import { ServiceEditClient } from "./clientService";
 import { useGetClientByIdQuery } from "../../redux/service/client/clientApi";
 import { useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
+import { useForm } from "react-hook-form";
 
 export default function EditClient() {
   const clientservice = ServiceEditClient();
-  const { instanceClient, setInstanceClient, handleChange, handleSubmit } =
+  const { instanceClient, setInstanceClient, handleChange, onSubmit } =
     clientservice;
   const { id } = useParams();
   const { data, isLoading, isSuccess } = useGetClientByIdQuery(id);
   const [client, setClient] = useState(data);
+
+  const {
+    handleSubmit,
+    watch,
+    register,
+    formState: { errors },
+  } = useForm();
 
   useEffect(() => {
     if (isSuccess) {
@@ -19,13 +27,12 @@ export default function EditClient() {
     }
   }, [isSuccess]);
 
-
   return (
     <Card color="transparent" shadow={false}>
       <Typography variant="h4" color="blue-gray">
         {"Edit Appartement"}
       </Typography>
-      <form className="mt-8 mb-2 w-full" onSubmit={handleSubmit}>
+      <form className="mt-8 mb-2 w-full" onSubmit={handleSubmit(onSubmit)}>
         <div className="my-4 flex items-center gap-4 w-full">
           <div className="w-full">
             <Typography
@@ -45,7 +52,20 @@ export default function EditClient() {
               onChange={handleChange}
               name="cin"
               value={instanceClient?.cin}
+              {...watch("cin", {
+                required: true,
+              })}
             />
+
+            {errors.cin && (
+              <span
+                className="text-red-500 text-xs italic absolute
+                -mt-6"
+                role="alert"
+              >
+                This field is required
+              </span>
+            )}
           </div>
         </div>
         <div className="my-4 flex items-center gap-4 w-full mt-4">
@@ -67,7 +87,19 @@ export default function EditClient() {
               onChange={handleChange}
               name="first_name"
               value={instanceClient?.first_name}
+              {...watch("first_name", {
+                required: true,
+              })}
             />
+            {errors.first_name && (
+              <span
+                className="text-red-500 text-xs italic absolute
+                -mt-6"
+                role="alert"
+              >
+                This field is required
+              </span>
+            )}
           </div>
           <div className="w-full">
             <Typography
@@ -88,7 +120,19 @@ export default function EditClient() {
               onChange={handleChange}
               name="last_name"
               value={instanceClient?.last_name}
+              {...watch("last_name", {
+                required: true,
+              })}
             />
+            {errors.last_name && (
+              <span
+                className="text-red-500 text-xs italic absolute
+                -mt-6"
+                role="alert"
+              >
+                This field is required
+              </span>
+            )}
           </div>
         </div>
         <div className="my-4 flex items-center gap-4 w-full mt-4">
@@ -110,7 +154,19 @@ export default function EditClient() {
               onChange={handleChange}
               name="email"
               value={instanceClient?.email}
+              {...watch("email", {
+                required: true,
+              })}
             />
+            {errors.email && (
+              <span
+                className="text-red-500 text-xs italic absolute
+                -mt-6"
+                role="alert"
+              >
+                This field is required
+              </span>
+            )}
           </div>
           <div className="w-full">
             <Typography
@@ -131,17 +187,24 @@ export default function EditClient() {
               onChange={handleChange}
               name="phone"
               value={instanceClient?.phone}
+              {...watch("phone", {
+                required: true,
+              })}
             />
+            {errors.phone && (
+              <span
+                className="text-red-500 text-xs italic absolute
+                -mt-6"
+                role="alert"
+              >
+                This field is required
+              </span>
+            )}
           </div>
         </div>
 
         <div className="flex justify-center">
-          <Button
-            type="submit"
-            className="mt-6"
-            color="lightBlue"
-            onClick={handleSubmit}
-          >
+          <Button type="submit" className="mt-6" color="lightBlue">
             edit
           </Button>
         </div>

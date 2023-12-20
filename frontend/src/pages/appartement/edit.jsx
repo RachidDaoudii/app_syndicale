@@ -1,18 +1,16 @@
 import {
   Card,
   Input,
-  Checkbox,
   Button,
   Typography,
   List,
   ListItem,
-  ListItemPrefix,
-  Radio,
 } from "@material-tailwind/react";
 import { Switch } from "@material-tailwind/react";
 import { getAppartementById } from "./appartementService";
 import { useParams } from "react-router-dom";
 import { useEffect } from "react";
+import { useForm } from "react-hook-form";
 
 export default function EditAppartement() {
   const { id } = useParams();
@@ -23,8 +21,15 @@ export default function EditAppartement() {
     dataAppartementById,
     handleChange,
     handleChecked,
-    handleSubmit,
+    onSubmit,
   } = getAppartementService;
+
+  const {
+    handleSubmit,
+    watch,
+    register,
+    formState: { errors },
+  } = useForm();
 
   useEffect(() => {
     if (id) {
@@ -41,7 +46,7 @@ export default function EditAppartement() {
       <Typography color="gray" className="mt-1 font-normal">
         {"Edit appartement"}
       </Typography>
-      <form className="mt-8 mb-2 w-full">
+      <form className="mt-8 mb-2 w-full" onSubmit={handleSubmit(onSubmit)}>
         <div className="my-4 flex items-center gap-4 w-full">
           <div className="w-full">
             <Typography
@@ -61,7 +66,20 @@ export default function EditAppartement() {
               onChange={handleChange}
               name="number"
               value={dataAppartementById && dataAppartementById.number}
+              {...watch("number", {
+                required: true,
+                minLength: 4,
+              })}
             />
+            {errors.number && (
+              <span
+                className="text-red-500 text-xs italic absolute
+                -mt-6"
+                role="alert"
+              >
+                This field is required
+              </span>
+            )}
           </div>
           <div className="w-full">
             <Typography
@@ -81,7 +99,21 @@ export default function EditAppartement() {
               name="city"
               onChange={handleChange}
               value={dataAppartementById && dataAppartementById.city}
+              {...watch("city", {
+                required: true,
+                maxLength: 20,
+                minLength: 8,
+              })}
             />
+            {errors.city && (
+              <span
+                className="text-red-500 text-xs italic absolute
+                -mt-6"
+                role="alert"
+              >
+                This field is required
+              </span>
+            )}
           </div>
         </div>
         <div className="my-4 flex items-center gap-4 w-full mt-4">
@@ -103,7 +135,19 @@ export default function EditAppartement() {
               name="price"
               onChange={handleChange}
               value={dataAppartementById && dataAppartementById.price}
+              {...watch("price", {
+                required: true,
+              })}
             />
+            {errors.price && (
+              <span
+                className="text-red-500 text-xs italic absolute
+                -mt-6"
+                role="alert"
+              >
+                This field is required
+              </span>
+            )}
           </div>
           <div className="w-full">
             <Typography
@@ -124,7 +168,21 @@ export default function EditAppartement() {
               name="address"
               onChange={handleChange}
               value={dataAppartementById && dataAppartementById.address}
+              {...watch("address", {
+                required: true,
+                maxLength: 20,
+                minLength: 8,
+              })}
             />
+            {errors.address && (
+              <span
+                className="text-red-500 text-xs italic absolute
+                -mt-6"
+                role="alert"
+              >
+                This field is required
+              </span>
+            )}
           </div>
         </div>
         <div className="my-4 flex items-center gap-4 w-full mt-4">
@@ -147,7 +205,19 @@ export default function EditAppartement() {
               name="surface"
               onChange={handleChange}
               value={dataAppartementById && dataAppartementById.surface}
+              {...watch("surface", {
+                required: true,
+              })}
             />
+            {errors.surface && (
+              <span
+                className="text-red-500 text-xs italic absolute
+                -mt-6"
+                role="alert"
+              >
+                This field is required
+              </span>
+            )}
           </div>
           <div className="w-full">
             <Typography
@@ -167,7 +237,19 @@ export default function EditAppartement() {
               name="rooms"
               onChange={handleChange}
               value={dataAppartementById && dataAppartementById.rooms}
+              {...watch("rooms", {
+                required: true,
+              })}
             />
+            {errors.rooms && (
+              <span
+                className="text-red-500 text-xs italic absolute
+                -mt-6"
+                role="alert"
+              >
+                This field is required
+              </span>
+            )}
           </div>
         </div>
         <div className="my-4 flex items-center gap-4 w-full mt-4">
@@ -190,7 +272,19 @@ export default function EditAppartement() {
               name="bedrooms"
               onChange={handleChange}
               value={dataAppartementById && dataAppartementById.bedrooms}
+              {...watch("bedrooms", {
+                required: true,
+              })}
             />
+            {errors.bedrooms && (
+              <span
+                className="text-red-500 text-xs italic absolute
+                -mt-6"
+                role="alert"
+              >
+                This field is required
+              </span>
+            )}
           </div>
           <div className="w-full mt-4">
             <div className="w-full max-w-[24rem]">
@@ -230,7 +324,6 @@ export default function EditAppartement() {
             type="submit"
             className="mt-6"
             color="lightBlue"
-            onClick={handleSubmit}
           >
             update
           </Button>
