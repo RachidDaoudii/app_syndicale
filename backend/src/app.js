@@ -9,6 +9,10 @@ const bodyParser = require("body-parser");
 const cookieParser = require("cookie-parser");
 const swaggerUi = require("swagger-ui-express");
 const swaggerDocs = require("./config/swagger");
+const {
+  notFound,
+  errorHandler,
+} = require("./frameworks/expressSpecific/middlewares/errorHandler");
 
 const allowedOrigins = ["http://localhost:5173"];
 const corsOptions = {
@@ -31,6 +35,8 @@ module.exports = {
     const apiRoutes = routes();
     app.use("/api/v1", apiRoutes);
     app.use(bodyParser.json());
+    app.use(notFound);
+    app.use(errorHandler);
 
     app.listen(PORT, () => {
       console.log(`Server running on port ${PORT}`);

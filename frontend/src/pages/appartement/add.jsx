@@ -8,11 +8,18 @@ import {
 } from "@material-tailwind/react";
 import { Switch } from "@material-tailwind/react";
 import { AddAppartementService } from "./appartementService";
+import { useForm } from "react-hook-form";
 
 export default function AddAppartement() {
   const AddService = AddAppartementService();
-  const { handleSubmit, handleChange, handleChecked, dataAppartement } =
-    AddService;
+  const { onSubmit, handleChange, handleChecked, dataAppartement } = AddService;
+
+  const {
+    handleSubmit,
+    watch,
+    register,
+    formState: { errors },
+  } = useForm();
 
   return (
     <Card color="transparent" shadow={false}>
@@ -22,7 +29,7 @@ export default function AddAppartement() {
       <Typography color="gray" className="mt-1 font-normal">
         {"Add new appartement"}
       </Typography>
-      <form className="mt-8 mb-2 w-full">
+      <form className="mt-8 mb-2 w-full" onSubmit={handleSubmit(onSubmit)}>
         <div className="my-4 flex items-center gap-4 w-full">
           <div className="w-full">
             <Typography
@@ -33,7 +40,7 @@ export default function AddAppartement() {
               Number
             </Typography>
             <Input
-              maxLength={5}
+              maxLength={4}
               placeholder="number"
               type="text"
               className=" !border-t-blue-gray-200 focus:!border-t-gray-900"
@@ -42,7 +49,20 @@ export default function AddAppartement() {
               }}
               onChange={handleChange}
               name="number"
+              {...watch("number", {
+                required: true,
+                minLength: 4,
+              })}
             />
+            {errors.number && (
+              <span
+                className="text-red-500 text-xs italic absolute
+                -mt-6"
+                role="alert"
+              >
+                This field is required
+              </span>
+            )}
           </div>
           <div className="w-full">
             <Typography
@@ -54,7 +74,7 @@ export default function AddAppartement() {
             </Typography>
             <Input
               type="text"
-              maxLength={5}
+              maxLength={20}
               placeholder="city"
               className=" !border-t-blue-gray-200 focus:!border-t-gray-900"
               labelProps={{
@@ -62,7 +82,22 @@ export default function AddAppartement() {
               }}
               onChange={handleChange}
               name="city"
+              {...watch("city", {
+                required: true,
+                maxLength: 20,
+                minLength: 8,
+              })}
             />
+
+            {errors.city && (
+              <span
+                className="text-red-500 text-xs italic absolute
+                -mt-6"
+                role="alert"
+              >
+                This field is required
+              </span>
+            )}
           </div>
         </div>
         <div className="my-4 flex items-center gap-4 w-full mt-4">
@@ -75,7 +110,6 @@ export default function AddAppartement() {
               Price
             </Typography>
             <Input
-              maxLength={5}
               type="number"
               placeholder="price"
               className=" !border-t-blue-gray-200 focus:!border-t-gray-900"
@@ -84,7 +118,19 @@ export default function AddAppartement() {
               }}
               onChange={handleChange}
               name="price"
+              {...watch("price", {
+                required: true,
+              })}
             />
+            {errors.price && (
+              <span
+                className="text-red-500 text-xs italic absolute
+                -mt-6"
+                role="alert"
+              >
+                This field is required
+              </span>
+            )}
           </div>
           <div className="w-full">
             <Typography
@@ -95,7 +141,7 @@ export default function AddAppartement() {
               address
             </Typography>
             <Input
-              maxLength={4}
+              maxLength={30}
               type="text"
               containerProps={{ className: "min-w-[72px]" }}
               placeholder="address"
@@ -105,7 +151,19 @@ export default function AddAppartement() {
               }}
               onChange={handleChange}
               name="address"
+              {...watch("address", {
+                required: true,
+              })}
             />
+            {errors.address && (
+              <span
+                className="text-red-500 text-xs italic absolute
+                -mt-6"
+                role="alert"
+              >
+                This field is required
+              </span>
+            )}
           </div>
         </div>
         <div className="my-4 flex items-center gap-4 w-full mt-4">
@@ -119,7 +177,7 @@ export default function AddAppartement() {
             </Typography>
             <Input
               type="number"
-              maxLength={4}
+              maxLength={5}
               containerProps={{ className: "min-w-[72px]" }}
               placeholder="surface"
               className=" !border-t-blue-gray-200 focus:!border-t-gray-900"
@@ -128,7 +186,19 @@ export default function AddAppartement() {
               }}
               onChange={handleChange}
               name="surface"
+              {...watch("surface", {
+                required: true,
+              })}
             />
+            {errors.surface && (
+              <span
+                className="text-red-500 text-xs italic absolute
+                -mt-6"
+                role="alert"
+              >
+                This field is required
+              </span>
+            )}
           </div>
           <div className="w-full">
             <Typography
@@ -140,7 +210,7 @@ export default function AddAppartement() {
             </Typography>
             <Input
               type="number"
-              maxLength={5}
+              maxLength={2}
               placeholder="rooms"
               className=" !border-t-blue-gray-200 focus:!border-t-gray-900"
               labelProps={{
@@ -148,7 +218,20 @@ export default function AddAppartement() {
               }}
               onChange={handleChange}
               name="rooms"
+              {...watch("rooms", {
+                required: true,
+
+              })}
             />
+            {errors.rooms && (
+              <span
+                className="text-red-500 text-xs italic absolute
+                -mt-6"
+                role="alert"
+              >
+                This field is required
+              </span>
+            )}
           </div>
         </div>
         <div className="my-4 flex items-center gap-4 w-full mt-4">
@@ -162,7 +245,7 @@ export default function AddAppartement() {
             </Typography>
             <Input
               type="number"
-              maxLength={5}
+              maxLength={2}
               placeholder="bedrooms"
               className=" !border-t-blue-gray-200 focus:!border-t-gray-900"
               labelProps={{
@@ -170,7 +253,19 @@ export default function AddAppartement() {
               }}
               onChange={handleChange}
               name="bedrooms"
+              {...watch("bedrooms", {
+                required: true,
+              })}
             />
+            {errors.bedrooms && (
+              <span
+                className="text-red-500 text-xs italic absolute
+                -mt-6"
+                role="alert"
+              >
+                This field is required
+              </span>
+            )}
           </div>
           <div className=" w-full mt-4">
             <div className="w-full max-w-[24rem]">
@@ -204,7 +299,7 @@ export default function AddAppartement() {
             type="submit"
             className="mt-6"
             color="lightBlue"
-            onClick={handleSubmit}
+            // onClick={handleSubmit}
           >
             save
           </Button>

@@ -259,14 +259,14 @@ export default function Paiement() {
                             <PrinterIcon className="h-4 w-4" />
                           </IconButton>
                         </Tooltip>
-                        <Tooltip content="Edit Client">
-                          <Link to={`/dashboard/client/edit/${_id}`}>
+                        <Tooltip content="Edit PAiement">
+                          <Link to={`/dashboard/paiement/edit/${_id}`}>
                             <IconButton variant="text">
                               <PencilIcon className="h-4 w-4" />
                             </IconButton>
                           </Link>
                         </Tooltip>
-                        <Tooltip content="Delete Client">
+                        <Tooltip content="Delete PAiement">
                           <IconButton
                             id={_id}
                             variant="text"

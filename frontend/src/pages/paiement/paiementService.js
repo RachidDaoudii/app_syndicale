@@ -5,16 +5,20 @@ import {
   useAddPaiementMutation,
   useDeletePaiementMutation,
   usePaiementQuery,
+  useUpdatePaimentMutation,
 } from "../../redux/service/paiement/paiementApi";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import jsPDF from "jspdf";
 import "jspdf-autotable";
 import { useSelector } from "react-redux";
+import { useParams } from "react-router-dom";
 
 export const PaiementService = () => {
   const navigate = useNavigate();
   const auth = useSelector((state) => state.auth);
+
+  const { id } = useParams();
 
   const [AllClient, setClient] = useState([]);
   const [AllAppartement, setAppartement] = useState([]);
@@ -60,6 +64,17 @@ export const PaiementService = () => {
     appartementRefetch();
   }, []);
 
+  const [
+    updatePaiement,
+    {
+      isLoading: updatePaiementIsLoading,
+      isError: updatePaiementIsError,
+      isSuccess: updatePaiementIsSuccess,
+      error: updatePaiementError,
+      data: updatePaiementData,
+    },
+  ] = useUpdatePaimentMutation();
+
   useEffect(() => {
     if (clientIsSuccess) {
       setClient(clientData.data);
@@ -77,6 +92,11 @@ export const PaiementService = () => {
     if (paiementIsError) {
       toast.error("All is Required");
     }
+
+    if (updatePaiementIsSuccess) {
+      toast.success("Paiement updated successfully");
+      navigate("/dashboard/paiement");
+    }
   }, [
     clientIsSuccess,
     appartementIsSuccess,
@@ -84,14 +104,15 @@ export const PaiementService = () => {
     paiementIsError,
     clientIsLoading,
     paiementIsLoading,
+    updatePaiementIsSuccess,
   ]);
 
   const handleChange = (e) => {
     setPaiement({ ...instancePaiement, [e.target.name]: e.target.value });
   };
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
+  const onSubmit = async (e) => {
+    // e.preventDefault();
     instancePaiement.user = auth._id;
     await addPaiement(instancePaiement);
   };
@@ -102,6 +123,13 @@ export const PaiementService = () => {
 
   const handleSelectedAppartement = (value) => {
     setPaiement({ ...instancePaiement, appartement: value });
+  };
+
+  const handleUpdate = async (e) => {
+    // e.preventDefault();
+    instancePaiement._id = id;
+    instancePaiement.user = auth._id;
+    await updatePaiement(instancePaiement);
   };
 
   const handlePrint = (e) => {
@@ -144,10 +172,11 @@ export const PaiementService = () => {
     AllClient,
     AllAppartement,
     handleChange,
-    handleSubmit,
+    onSubmit,
     handleSelectedClient,
     handleSelectedAppartement,
     handlePrint,
+    handleUpdate,
   };
 };
 
@@ -219,5 +248,43 @@ export const printAppartemant = () => {
 
   return {
     handlePrintFalse,
+  };
+};
+
+export const updatePaiement = () => {
+  const [
+    updatePaiement,
+    {
+      isLoading: updatePaiementIsLoading,
+      isError: updatePaiementIsError,
+      isSuccess: updatePaiementIsSuccess,
+      error: updatePaiementError,
+      data: updatePaiementData,
+    },
+  ] = useUpdatePaimentMutation();
+  const handleUpdate = async (obj) => {
+    const { id, appartement, client } = obj;
+    await updatePaiement(obj);
+  };
+
+  useEffect(() => {
+    if (updatePaiementIsSuccess) {
+      toast.success("Client update successfully");
+    }
+  }, [updatePaiementIsSuccess]);
+
+  const handleSelectedClient = (value) => {
+    setPaiement({ ...instancePaiement, client: value });
+  };
+
+  const handleSelectedAppartement = (value) => {
+    setPaiement({ ...instancePaiement, appartement: value });
+  };
+
+  return {
+    handleUpdate,
+    updatePaiementIsSuccess,
+    handleSelectedClient,
+    handleSelectedAppartement,
   };
 };

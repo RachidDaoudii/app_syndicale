@@ -1,11 +1,19 @@
 import { Input, Checkbox, Button, Typography } from "@material-tailwind/react";
 import { Link } from "react-router-dom";
 import { LoginService } from ".";
-
+import { useForm } from "react-hook-form";
 export function SignIn() {
   const loginService = LoginService();
 
-  const { data, handleSubmit, handleChange } = loginService;
+  const { data, onSubmit, handleChange } = loginService;
+
+  const {
+    handleSubmit,
+    watch,
+    register,
+    formState: { errors },
+  } = useForm();
+
   return (
     <section className="m-8 flex gap-4">
       <div className="w-full lg:w-3/5">
@@ -22,7 +30,7 @@ export function SignIn() {
           </Typography>
         </div>
         <form
-          onSubmit={handleSubmit}
+          onSubmit={handleSubmit(onSubmit)}
           className="mt-8 mb-2 mx-auto w-80 max-w-screen-lg lg:w-1/2"
         >
           <div className="mb-1 flex flex-col gap-6">
@@ -43,7 +51,21 @@ export function SignIn() {
               name="email"
               value={data.email}
               onChange={handleChange}
+              {...watch("email", {
+                required: true,
+                maxLength: 20,
+                minLength: 8,
+              })}
             />
+            {errors.email && (
+              <span
+                className="text-red-500 text-xs italic absolute
+                -mt-6"
+                role="alert"
+              >
+                This field is required
+              </span>
+            )}
             <Typography
               variant="small"
               color="blue-gray"
@@ -62,7 +84,20 @@ export function SignIn() {
               name="password"
               value={data.password}
               onChange={handleChange}
+              {...watch("password", {
+                required: true,
+                maxLength: 20,
+                minLength: 8,
+              })}
             />
+            {errors.password && (
+              <span
+                className="text-red-500 text-xs italic absolute -mt-6"
+                role="alert"
+              >
+                This field is required
+              </span>
+            )}
           </div>
           <Checkbox
             label={
