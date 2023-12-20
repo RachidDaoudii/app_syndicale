@@ -56,7 +56,7 @@ Pour installer et exécuter ce projet, procédez comme suit :
 - Accédez au répertoire du projet à l'aide de la commande `cd backend`
 - - Démarrez le serveur à l'aide de la commande `npm run test`
 
-
+### Autre documentation cliquez ici https://github.com/RachidDaoudii/app_syndicale.wiki.git
 
 ## Author
 
