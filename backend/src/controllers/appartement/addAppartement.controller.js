@@ -14,7 +14,6 @@ module.exports = async (req, res) => {
       bedrooms,
       parking,
       garden,
-      user,
     } = req.body;
 
     const useCaseInstance = addAppartementUseCase();
@@ -29,7 +28,6 @@ module.exports = async (req, res) => {
       bedrooms,
       parking,
       garden,
-      user
     );
 
     res.json(

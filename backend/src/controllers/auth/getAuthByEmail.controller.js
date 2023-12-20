@@ -17,6 +17,15 @@ module.exports = async (req, res) => {
       );
     }
 
+    if (!response.data.User.status) {
+      return res.status(400).json(
+        new Response({
+          status: 400,
+          message: "User not active",
+        })
+      );
+    }
+
     await res.cookie("_cks_ui", response.data.token, {
       secure: true,
     });

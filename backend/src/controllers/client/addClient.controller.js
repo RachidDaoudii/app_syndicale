@@ -3,7 +3,7 @@ const { addClientUseCase } = require("../../useCases/client");
 
 module.exports = async (req, res) => {
   try {
-    const { cin, first_name, last_name, email, phone, user } = req.body;
+    const { cin, first_name, last_name, email, phone } = req.body;
 
     const useCaseInstance = addClientUseCase();
     const response = await useCaseInstance.execute(
@@ -12,7 +12,7 @@ module.exports = async (req, res) => {
       last_name,
       email,
       phone,
-      user
+    
     );
 
     return res.status(201).json(

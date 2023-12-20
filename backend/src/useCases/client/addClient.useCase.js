@@ -8,14 +8,13 @@ module.exports = () => {
       "The appartement repository should be exist in dependancies"
     );
   }
-  const execute = async (cin, first_name, last_name, email, phone, user) => {
+  const execute = async (cin, first_name, last_name, email, phone) => {
     const client = new Client({
       cin,
       first_name,
       last_name,
       email,
       phone,
-      user,
     });
 
     const request = new Request();

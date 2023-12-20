@@ -23,10 +23,6 @@ const paiementSchema = new mongoose.Schema({
     ref: "Appartement",
     required: true,
   },
-  user: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: "User",
-  },
   datePaiement: {
     type: Date,
     required: true,

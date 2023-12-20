@@ -14,7 +14,6 @@ module.exports.Request = class Request {
       bedrooms: joi.number().required(),
       parking: joi.boolean().required(),
       garden: joi.boolean().required(),
-      user: joi.string().required(),
     });
   };
 
@@ -26,7 +25,6 @@ module.exports.Request = class Request {
       last_name: joi.string().required(),
       email: joi.string().required(),
       phone: joi.string().required(),
-      user: joi.string().required(),
     });
   };
 
@@ -37,7 +35,6 @@ module.exports.Request = class Request {
       appartement: joi.string().required(),
       montant: joi.number().required(),
       datePaiement: joi.date().required(),
-      user: joi.string().required(),
     });
   };
 };
