@@ -81,18 +81,21 @@ export const LoginService = () => {
   };
 
   useEffect(() => {
+    if (loginError?.data?.message == "User not active") {
+      return toast.error("User not active");
+    }
+    if (isLoginError) {
+      return toast.error("Email and Password  not correct");
+    }
+
     if (isLoginSuccess) {
       const { data } = loginData;
       dispatch(setlogin(data.data));
-      console.log(data.data);
 
       toast.success("Login success");
-      navigate("/dashboard");
+      return navigate("/dashboard");
     }
-    if (isLoginError) {
-      toast.error("Email and Password  not correct");
-    }
-  }, [isLoginSuccess, isLoginError]);
+  }, [isLoginSuccess, isLoginError, loginError]);
   return {
     data,
     onSubmit,

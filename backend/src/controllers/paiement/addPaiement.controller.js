@@ -7,7 +7,7 @@ const { updateStatusClientUseCase } = require("../../useCases/client");
 
 module.exports = async (req, res) => {
   try {
-    const { appartement, client, datePaiement, montant, user } = req.body;
+    const { appartement, client, datePaiement, montant } = req.body;
 
     const useCaseInstanceUpdate = updateStatusAppartementUseCase();
 
@@ -35,8 +35,7 @@ module.exports = async (req, res) => {
       appartement,
       client,
       datePaiement,
-      montant,
-      user
+      montant
     );
 
     return res.status(201).json(

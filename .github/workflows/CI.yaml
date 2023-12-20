@@ -1,4 +1,4 @@
-name: AlloMedia CI/CD
+name: syndicale CI
 
 on:
   push:

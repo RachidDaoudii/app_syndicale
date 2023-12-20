@@ -64,10 +64,6 @@ const appartementSchema = new mongoose.Schema({
     trim: true,
     minlength: 2,
   },
-  user: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: "User",
-  },
   createdAt: {
     type: Date,
     default: Date.now,

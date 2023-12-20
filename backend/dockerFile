@@ -1,7 +1,5 @@
 FROM node:alpine as development
 
-
-# Create app directory
 WORKDIR /app/backend 
 
 COPY package*.json ./
@@ -9,6 +7,5 @@ COPY package*.json ./
 RUN npm install
 
 COPY . .
-
 
 CMD ["node", "index.js"]
