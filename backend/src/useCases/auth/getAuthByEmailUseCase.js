@@ -20,7 +20,7 @@ module.exports = () => {
       return false;
     }
 
-    const { _id, first_name, last_name, role } = User;
+    const { _id, first_name, last_name, isAuth, status } = User;
 
     const isPasswordCorrect = await bcrypt.comparePassword(
       password,
@@ -42,7 +42,14 @@ module.exports = () => {
       status: 200,
       message: `User with email ${email} exist.`,
       data: {
-        User,
+        User: {
+          _id,
+          first_name,
+          last_name,
+          email,
+          status,
+          isAuth: true,
+        },
         token,
       },
       errors: null,

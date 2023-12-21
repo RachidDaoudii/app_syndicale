@@ -55,10 +55,6 @@ const userSchema = new mongoose.Schema(
           "Password must contain at least one uppercase letter, one lowercase letter, one special character and one number",
       },
     },
-    loginCount: {
-      type: Number,
-      default: 0,
-    },
     picture: {
       type: String,
       default:
@@ -75,6 +71,10 @@ const userSchema = new mongoose.Schema(
     refreshToken: {
       type: String,
       default: "",
+    },
+    isAuth: {
+      type: Boolean,
+      default: false,
     },
     passwordChangedAt: Date,
     passwordResetToken: String,

@@ -15,7 +15,6 @@ jest.mock("../../../../src/frameworks/repositories/mongo", () => ({
           client: "SDFSDF243324",
           datePaiement: "2000/12/12",
           montant: 200,
-          user: "433E5F32D24C2R",
         },
       ];
     }),
@@ -28,7 +27,6 @@ describe("UseCase Paiement", () => {
     client: "SDFSDF243324",
     datePaiement: "2000/12/12",
     montant: 200,
-    user: "433E5F32D24C2R",
   };
   const mockReq = {
     body: {
@@ -36,7 +34,6 @@ describe("UseCase Paiement", () => {
       client: "SDFSDF243324",
       datePaiement: "2000/12/12",
       montant: 200,
-      user: "433E5F32D24C2R",
     },
   };
   const mockRes = {
@@ -52,7 +49,6 @@ describe("UseCase Paiement", () => {
       mockReq.body.client,
       mockReq.body.datePaiement,
       mockReq.body.montant,
-      mockReq.body.user
     );
     expect(response).toEqual(mockRes.response);
   });
@@ -67,7 +63,6 @@ describe("UseCase Paiement", () => {
           client: "SDFSDF243324",
           datePaiement: "2000/12/12",
           montant: 200,
-          user: "433E5F32D24C2R",
         }),
       ])
     );

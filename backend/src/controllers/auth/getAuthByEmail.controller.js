@@ -8,9 +8,9 @@ module.exports = async (req, res) => {
     const response = await useCaseInstance.execute(email, password);
 
     if (!response) {
-      return res.status(400).json(
+      return res.status(404).json(
         new Response({
-          status: 400,
+          status: 404,
           message: "User not found",
           data: response,
         })
@@ -18,9 +18,9 @@ module.exports = async (req, res) => {
     }
 
     if (!response.data.User.status) {
-      return res.status(400).json(
+      return res.status(404).json(
         new Response({
-          status: 400,
+          status: 404,
           message: "User not active",
         })
       );

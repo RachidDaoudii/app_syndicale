@@ -7,20 +7,7 @@ const AuthState = {
   first_name: null,
   last_name: null,
   email: null,
-  mobile: null,
-  password: null,
-  loginCount: 0,
-  picture:
-    "https://res.cloudinary.com/dmhcnhtng/image/upload/v1643044376/avatars/default_pic_jeaybr.png",
-  isBlocked: false,
-  isVerified: false,
   isAuth: false,
-  verified: false,
-  refreshToken: null,
-  deletedAt: null,
-  createdAt: null,
-  updatedAt: null,
-  __v: 0,
 };
 
 const authSlice = createSlice({
@@ -32,7 +19,7 @@ const authSlice = createSlice({
       state.first_name = action.payload?.User?.first_name;
       state.last_name = action.payload?.User?.last_name;
       state.email = action.payload?.User?.email;
-      state.isAuth = true;
+      state.isAuth = action.payload?.User?.isAuth;
 
       if (action.payload?.User?._id) {
         localStorage.setItem(
@@ -43,7 +30,7 @@ const authSlice = createSlice({
               first_name: action.payload?.User?.first_name,
               last_name: action.payload?.User?.last_name,
               email: action.payload?.User?.email,
-              isAuth: true,
+              isAuth: action.payload?.User?.isAuth,
             },
           })
         );
@@ -54,7 +41,6 @@ const authSlice = createSlice({
       localStorage.removeItem("USER");
       Cookies.remove("_cks_ui");
       state.isAuth = false;
-      console.log(state.isAuth);
     },
     register: (state, action) => {
       state.user = action.payload;
