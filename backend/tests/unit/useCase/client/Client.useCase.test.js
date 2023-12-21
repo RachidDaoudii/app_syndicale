@@ -16,7 +16,6 @@ jest.mock("../../../../src/frameworks/repositories/mongo", () => ({
           last_name: "lastname test",
           email: "email@gmail.com",
           phone: "0121234568",
-          user: "433E5F32D24C2R",
         },
       ];
     }),
@@ -31,7 +30,6 @@ describe("UseCase Client", () => {
     last_name: "lastname test",
     email: "email@gmail.com",
     phone: "0121234568",
-    user: "433E5F32D24C2R",
   };
   const mockReq = {
     body: {
@@ -41,7 +39,6 @@ describe("UseCase Client", () => {
       last_name: "lastname test",
       email: "email@gmail.com",
       phone: "0121234568",
-      user: "433E5F32D24C2R",
     },
   };
   const mockRes = {
@@ -58,7 +55,6 @@ describe("UseCase Client", () => {
       mockReq.body.last_name,
       mockReq.body.email,
       mockReq.body.phone,
-      mockReq.body.user
     );
     expect(response).toEqual(mockRes.response);
   });
@@ -74,7 +70,6 @@ describe("UseCase Client", () => {
           last_name: "lastname test",
           email: "email@gmail.com",
           phone: "0121234568",
-          user: "433E5F32D24C2R",
         }),
       ])
     );

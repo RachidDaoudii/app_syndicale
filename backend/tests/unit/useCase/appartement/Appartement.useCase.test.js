@@ -24,7 +24,6 @@ jest.mock("../../../../src/frameworks/repositories/mongo", () => ({
           bedrooms: 4,
           parking: false,
           garden: false,
-          user: "kj12414",
         },
       ];
     }),
@@ -50,7 +49,6 @@ describe("UseCase Appartement", () => {
     bedrooms: 4,
     parking: false,
     garden: false,
-    user: "kj12414",
   };
 
   const mockReq = {
@@ -66,7 +64,6 @@ describe("UseCase Appartement", () => {
       bedrooms: 4,
       parking: false,
       garden: false,
-      user: "kj12414",
     },
   };
   const mockRes = {
@@ -88,7 +85,6 @@ describe("UseCase Appartement", () => {
       mockReq.body.bedrooms,
       mockReq.body.parking,
       mockReq.body.garden,
-      mockReq.body.user
     );
     expect(response).toEqual(mockRes.response);
   });
@@ -110,7 +106,6 @@ describe("UseCase Appartement", () => {
           bedrooms: 4,
           parking: false,
           garden: false,
-          user: "kj12414",
         }),
       ])
     );
@@ -131,7 +126,6 @@ describe("UseCase Appartement", () => {
       rooms: null,
       status: false,
       surface: null,
-      user: null,
     });
   });
 

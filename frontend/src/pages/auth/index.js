@@ -81,21 +81,26 @@ export const LoginService = () => {
   };
 
   useEffect(() => {
-    if (loginError?.data?.message == "User not active") {
-      return toast.error("User not active");
-    }
-    if (isLoginError) {
-      return toast.error("Email and Password  not correct");
-    }
-
     if (isLoginSuccess) {
       const { data } = loginData;
       dispatch(setlogin(data.data));
-
       toast.success("Login success");
       return navigate("/dashboard");
     }
-  }, [isLoginSuccess, isLoginError, loginError]);
+  }, [isLoginSuccess]);
+
+  useEffect(() => {
+    if (loginError?.data?.message == "User not active") {
+      return toast.error(loginError?.data?.message);
+    }
+    // if (loginError?.message == "User not found") {
+    //   return toast.error("Email and Password  not correct");
+    // }
+    if (isLoginError) {
+      return toast.error("Email and Password  not correct");
+    }
+  }, [isLoginError]);
+
   return {
     data,
     onSubmit,
