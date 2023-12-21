@@ -1,8 +1,11 @@
+const jsonWebToken = require("../../config/jwt");
 const { Response } = require("../../frameworks/common/response");
 const { getAllAppartementUseCase } = require("../../useCases/appartement");
 
 module.exports = async (req, res) => {
   try {
+    const token = req.cookies._cks_ui;
+    const decoded = await jsonWebToken.verify(token);
     const useCaseInstance = getAllAppartementUseCase();
     const response = await useCaseInstance.execute();
 
